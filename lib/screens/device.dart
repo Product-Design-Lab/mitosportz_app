@@ -17,7 +17,13 @@ class DeviceScreen extends StatefulWidget {
 }
 
 class _DeviceScreenState extends State<DeviceScreen> {
-  late Timer _timer;
+  BluetoothConnectionState _connectionState =
+      BluetoothConnectionState.disconnected;
+
+  late StreamSubscription<BluetoothConnectionState>
+      _connectionStateSubscription;
+
+  late StreamSubscription _exampleCharacteristicSubscription;
 
   int exampleCharacteristic = 0;
 
@@ -25,9 +31,26 @@ class _DeviceScreenState extends State<DeviceScreen> {
   void initState() {
     super.initState();
 
-    _timer = Timer.periodic(const Duration(seconds: 1), (Timer t) {
-      update();
+    _connectionStateSubscription =
+        widget.device.connectionState.listen((state) async {
+      if (state == BluetoothConnectionState.connected) {
+        update();
+      }
+
+      if (state == BluetoothConnectionState.disconnected) {
+        await widget.device.connect();
+      }
+
+      setState(() {
+        _connectionState = state;
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _exampleCharacteristicSubscription.cancel();
+    super.dispose();
   }
 
   void update() async {
@@ -41,9 +64,13 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
           // exampleCharacteristic
           if (c.uuid.toString() == Device.exampleCharacteristic.toLowerCase()) {
-            setState(() {
-              exampleCharacteristic = value[0];
+            _exampleCharacteristicSubscription =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                exampleCharacteristic = value[0];
+              });
             });
+            await c.setNotifyValue(true);
           }
         }
       }
