@@ -20,10 +20,9 @@ class _DeviceScreenState extends State<DeviceScreen> {
   BluetoothConnectionState _connectionState =
       BluetoothConnectionState.disconnected;
 
-  late StreamSubscription<BluetoothConnectionState>
-      _connectionStateSubscription;
+  StreamSubscription<BluetoothConnectionState>? _connectionStateSubscription;
 
-  late StreamSubscription _exampleCharacteristicSubscription;
+  StreamSubscription? _exampleCharacteristicSubscription;
 
   int exampleCharacteristic = 0;
 
@@ -49,7 +48,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
   @override
   void dispose() {
-    _exampleCharacteristicSubscription.cancel();
+    _exampleCharacteristicSubscription?.cancel();
     super.dispose();
   }
 
