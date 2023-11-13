@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import 'package:app_template/model.dart';
+import 'package:app_template/model/device.dart';
 
 import 'package:app_template/widgets/base.dart';
 
