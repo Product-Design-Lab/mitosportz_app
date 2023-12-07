@@ -22,9 +22,13 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
   StreamSubscription<BluetoothConnectionState>? _connectionStateSubscription;
 
-  StreamSubscription? _exampleCharacteristicSubscription;
+  StreamSubscription? _heartRateCharacteristicSubscription;
+  StreamSubscription? _bloodOxygenCharacteristicSubscription;
+  StreamSubscription? _batteryLevelCharacteristicSubscription;
 
-  int exampleCharacteristic = 0;
+  int heartRate = 0;
+  int bloodOxygen = 0;
+  int batteryLevel = 0;
 
   @override
   void initState() {
@@ -48,7 +52,9 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
   @override
   void dispose() {
-    _exampleCharacteristicSubscription?.cancel();
+    _heartRateCharacteristicSubscription?.cancel();
+    _bloodOxygenCharacteristicSubscription?.cancel();
+    _batteryLevelCharacteristicSubscription?.cancel();
     super.dispose();
   }
 
@@ -61,12 +67,37 @@ class _DeviceScreenState extends State<DeviceScreen> {
         for (BluetoothCharacteristic c in characteristics) {
           List<int> value = await c.read();
 
-          // exampleCharacteristic
-          if (c.uuid.toString() == Device.exampleCharacteristic.toLowerCase()) {
-            _exampleCharacteristicSubscription =
+          // heartRateCharacteristic
+          if (c.uuid.toString() ==
+              Device.heartRateCharacteristic.toLowerCase()) {
+            _heartRateCharacteristicSubscription =
                 c.onValueReceived.listen((value) async {
               setState(() {
-                exampleCharacteristic = value[0];
+                heartRate = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // bloodOxygenCharacteristic
+          if (c.uuid.toString() ==
+              Device.bloodOxygenCharacteristic.toLowerCase()) {
+            _bloodOxygenCharacteristicSubscription =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                bloodOxygen = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // batteryLevelCharacteristic
+          if (c.uuid.toString() ==
+              Device.batteryLevelCharacteristic.toLowerCase()) {
+            _batteryLevelCharacteristicSubscription =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                batteryLevel = value[0];
               });
             });
             await c.setNotifyValue(true);
@@ -76,16 +107,15 @@ class _DeviceScreenState extends State<DeviceScreen> {
     });
   }
 
-  void exampleAction() async {
+  void resetAction() async {
     List<BluetoothService> services = await widget.device.discoverServices();
 
     services.forEach((service) async {
       if (service.uuid.toString() == Device.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
-          // Example Action Characteristic
-          if (c.uuid.toString() ==
-              Device.exampleActionCharacteristic.toLowerCase()) {
+          // resetCharacteristic
+          if (c.uuid.toString() == Device.resetCharacteristic.toLowerCase()) {
             c.write([0]);
           }
         }
@@ -104,9 +134,10 @@ class _DeviceScreenState extends State<DeviceScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Center(child: Text("Example Characterstic: $exampleCharacteristic")),
-        MaterialButton(
-            onPressed: exampleAction, child: const Text("Example Action"))
+        Center(child: Text("Heart Rate: $heartRate bpm")),
+        Center(child: Text("Blood Oxygen Saturation: $bloodOxygen%")),
+        Center(child: Text("Battery Level: $batteryLevel%")),
+        MaterialButton(onPressed: resetAction, child: const Text("Reset"))
       ],
     ));
   }

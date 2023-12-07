@@ -1,6 +1,6 @@
-# App Template
+# MitoSportz App
 
-A basic bluetooth companion app for future Product Design Lab projects.
+A basic bluetooth companion app for MitoSportz devices.
 
 ## Requirements
 
