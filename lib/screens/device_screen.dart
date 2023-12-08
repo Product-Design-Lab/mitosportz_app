@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import 'package:app_template/model/device.dart';
+import 'package:mitosportz/model/device.dart';
 
-import 'package:app_template/widgets/base.dart';
+import 'package:mitosportz/widgets/base.dart';
 
 class DeviceScreen extends StatefulWidget {
   final BluetoothDevice device;

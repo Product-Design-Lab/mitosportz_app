@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_template/constants/colors.dart';
+import 'package:mitosportz/constants/colors.dart';
 
 class Base extends StatelessWidget {
   final Widget child;

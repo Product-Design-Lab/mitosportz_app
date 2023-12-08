@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
-import 'package:app_template/constants/colors.dart';
-import 'package:app_template/constants/text_styles.dart';
+import 'package:mitosportz/constants/colors.dart';
+import 'package:mitosportz/constants/text_styles.dart';
 
-import 'package:app_template/model/device.dart';
+import 'package:mitosportz/model/device.dart';
 
-import 'package:app_template/widgets/base.dart';
+import 'package:mitosportz/widgets/base.dart';
 
-import 'package:app_template/screens/device_screen.dart';
+import 'package:mitosportz/screens/device_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({Key? key}) : super(key: key);

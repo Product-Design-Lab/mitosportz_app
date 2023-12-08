@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:app_template/constants/colors.dart';
-import 'package:app_template/constants/text_styles.dart';
+import 'package:mitosportz/constants/colors.dart';
+import 'package:mitosportz/constants/text_styles.dart';
 
 class ButtonStyles {
   static ButtonStyle buttonDefault = ButtonStyle(

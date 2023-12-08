@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:app_template/screens/connect_screen.dart';
+import 'package:mitosportz/screens/connect_screen.dart';
 
 void main() {
   if (Platform.isAndroid) {
