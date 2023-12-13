@@ -1,21 +1,57 @@
+class CharacteristicID {
+  final String heartRate;
+  final String bloodOxygen;
+  final String batteryLevel;
+  final String reset;
+  final String ledOnTime;
+  final String laserDiode;
+  final String laserDiodeDelay;
+
+  CharacteristicID({
+    required this.heartRate,
+    required this.bloodOxygen,
+    required this.batteryLevel,
+    required this.reset,
+    required this.ledOnTime,
+    required this.laserDiode,
+    required this.laserDiodeDelay,
+  });
+}
+
 class Device {
-  static const String name = "Mitosports_01";
+  final String name;
+  final String service;
+  final CharacteristicID characteristicID;
 
-  static const String service = "20B10020-E8F2-537E-4F6C-D104768A1214";
+  Device({
+    required this.name,
+    required this.service,
+    required this.characteristicID,
+  });
+}
 
-  static const String heartRateCharacteristic =
-      "20B10022-E8F2-537E-4F6C-D104768A1214"; // Heart rate
-  static const String bloodOxygenCharacteristic =
-      "20B10021-E8F2-537E-4F6C-D104768A1214"; // Pulse Oximetry
-  static const String batteryLevelCharacteristic =
-      "20B10020-E8F2-537E-4F6C-D104768A1214"; // The battery level of the device from 0-100
+class Devices {
+  static Device deviceA = Device(
+      name: "Mitosportz_01_A",
+      service: "20B10020-E8F2-537E-4F6C-D104768A1214",
+      characteristicID: CharacteristicID(
+          heartRate: "20B10022-E8F2-537E-4F6C-D104768A1214",
+          bloodOxygen: "20B10021-E8F2-537E-4F6C-D104768A1214",
+          batteryLevel: "20B10020-E8F2-537E-4F6C-D104768A1214",
+          reset: "20B10023-E8F2-537E-4F6C-D104768A1214",
+          ledOnTime: "20B10024-E8F2-537E-4F6C-D104768A1214",
+          laserDiode: "20B10025-E8F2-537E-4F6C-D104768A1214",
+          laserDiodeDelay: "20B10026-E8F2-537E-4F6C-D104768A1214"));
 
-  static const String resetCharacteristic =
-      "20B10023-E8F2-537E-4F6C-D104768A1214"; // Resets the device and the app
-  static const String ledOnTimeCharacteristic =
-      "20B10024-E8F2-537E-4F6C-D104768A1214"; // LED On Time
-  static const String laserDiodeTimingCharacteristic =
-      "20B10025-E8F2-537E-4F6C-D104768A1214"; // Laser Diode Timing
-  static const String laserDiodeDelayCharacteristic =
-      "20B10026-E8F2-537E-4F6C-D104768A1214"; // Laser Diode Delay
+  static Device deviceB = Device(
+      name: "Mitosportz_01_A",
+      service: "20B10020-E8F2-537E-4F6C-D104768A1214",
+      characteristicID: CharacteristicID(
+          heartRate: "20B10022-E8F2-537E-4F6C-D104768A1214",
+          bloodOxygen: "20B10021-E8F2-537E-4F6C-D104768A1214",
+          batteryLevel: "20B10020-E8F2-537E-4F6C-D104768A1214",
+          reset: "20B10023-E8F2-537E-4F6C-D104768A1214",
+          ledOnTime: "20B10024-E8F2-537E-4F6C-D104768A1214",
+          laserDiode: "20B10025-E8F2-537E-4F6C-D104768A1214",
+          laserDiodeDelay: "20B10026-E8F2-537E-4F6C-D104768A1214"));
 }

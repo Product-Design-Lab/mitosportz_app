@@ -62,14 +62,14 @@ class _DeviceScreenState extends State<DeviceScreen> {
     List<BluetoothService> services = await widget.device.discoverServices();
 
     services.forEach((service) async {
-      if (service.uuid.toString() == Device.service.toLowerCase()) {
+      if (service.uuid.toString() == Devices.deviceA.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
           List<int> value = await c.read();
 
           // heartRateCharacteristic
           if (c.uuid.toString() ==
-              Device.heartRateCharacteristic.toLowerCase()) {
+              Devices.deviceA.characteristicID.heartRate.toLowerCase()) {
             _heartRateCharacteristicSubscription =
                 c.onValueReceived.listen((value) async {
               setState(() {
@@ -81,7 +81,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
           // bloodOxygenCharacteristic
           if (c.uuid.toString() ==
-              Device.bloodOxygenCharacteristic.toLowerCase()) {
+              Devices.deviceA.characteristicID.bloodOxygen.toLowerCase()) {
             _bloodOxygenCharacteristicSubscription =
                 c.onValueReceived.listen((value) async {
               setState(() {
@@ -93,7 +93,7 @@ class _DeviceScreenState extends State<DeviceScreen> {
 
           // batteryLevelCharacteristic
           if (c.uuid.toString() ==
-              Device.batteryLevelCharacteristic.toLowerCase()) {
+              Devices.deviceA.characteristicID.batteryLevel.toLowerCase()) {
             _batteryLevelCharacteristicSubscription =
                 c.onValueReceived.listen((value) async {
               setState(() {
@@ -111,11 +111,12 @@ class _DeviceScreenState extends State<DeviceScreen> {
     List<BluetoothService> services = await widget.device.discoverServices();
 
     services.forEach((service) async {
-      if (service.uuid.toString() == Device.service.toLowerCase()) {
+      if (service.uuid.toString() == Devices.deviceA.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
           // resetCharacteristic
-          if (c.uuid.toString() == Device.resetCharacteristic.toLowerCase()) {
+          if (c.uuid.toString() ==
+              Devices.deviceA.characteristicID.reset.toLowerCase()) {
             c.write([0]);
           }
         }
