@@ -5,6 +5,7 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+import 'package:mitosportz/screens/multi_device_screen.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 
@@ -44,8 +45,9 @@ class _ScannerScreen extends StatelessWidget {
   const _ScannerScreen({Key? key}) : super(key: key);
 
   void connect(BuildContext context) async {
-    BluetoothDevice? deviceA;
-    BluetoothDevice? deviceB;
+    BluetoothDevice deviceA;
+    BluetoothDevice deviceB;
+    var _connectedCount = 0;
 
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
@@ -54,22 +56,22 @@ class _ScannerScreen extends StatelessWidget {
           result.device.connect();
           deviceA = result.device;
           print('Connected to ${result.device.platformName}');
-        }
 
-        if (result.device.platformName == Devices.deviceB.name) {
-          result.device.connect();
-          deviceB = result.device;
-          print('Connected to ${result.device.platformName}');
-        }
+          if (result.device.platformName == Devices.deviceB.name) {
+            result.device.connect();
+            deviceB = result.device;
+            print('Connected to ${result.device.platformName}');
 
-        if ((deviceA != null) && (deviceB != null)) {
-          FlutterBluePlus.stopScan();
-          print('Both devices connected');
-
-          // Navigator.pushReplacement(
-          //     context,
-          //     MaterialPageRoute(
-          //         builder: (context) => DeviceScreen(device: result.device)));
+            FlutterBluePlus.stopScan();
+            Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                    // builder: (context) => DeviceScreen(device: result.device)));
+                    builder: (context) => MultiDeviceScreen(
+                          deviceA: deviceA,
+                          deviceB: deviceB,
+                        )));
+          }
         }
       }
     });
