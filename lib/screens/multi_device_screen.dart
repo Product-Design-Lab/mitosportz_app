@@ -8,8 +8,8 @@ import 'package:mitosportz/model/device.dart';
 import 'package:mitosportz/widgets/base.dart';
 
 class MultiDeviceScreen extends StatefulWidget {
-  final BluetoothDevice deviceA;
-  final BluetoothDevice deviceB;
+  final BluetoothDevice? deviceA;
+  final BluetoothDevice? deviceB;
 
   const MultiDeviceScreen(
       {Key? key, required this.deviceA, required this.deviceB})
@@ -51,13 +51,13 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
     super.initState();
 
     _connectionStateSubscriptionA =
-        widget.deviceA.connectionState.listen((state) async {
+        widget.deviceA?.connectionState.listen((state) async {
       if (state == BluetoothConnectionState.connected) {
         update();
       }
 
       if (state == BluetoothConnectionState.disconnected) {
-        await widget.deviceA.connect();
+        await widget.deviceA?.connect();
       }
 
       setState(() {
@@ -66,13 +66,13 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
     });
 
     _connectionStateSubscriptionB =
-        widget.deviceB.connectionState.listen((state) async {
+        widget.deviceB?.connectionState.listen((state) async {
       if (state == BluetoothConnectionState.connected) {
         update();
       }
 
       if (state == BluetoothConnectionState.disconnected) {
-        await widget.deviceB.connect();
+        await widget.deviceB?.connect();
       }
 
       setState(() {
@@ -90,10 +90,12 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
   }
 
   void update() async {
-    List<BluetoothService> servicesA = await widget.deviceA.discoverServices();
-    List<BluetoothService> servicesB = await widget.deviceB.discoverServices();
+    List<BluetoothService>? servicesA =
+        await widget.deviceA?.discoverServices();
+    List<BluetoothService>? servicesB =
+        await widget.deviceB?.discoverServices();
 
-    servicesA.forEach((service) async {
+    servicesA?.forEach((service) async {
       if (service.uuid.toString() == Devices.deviceA.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
@@ -138,7 +140,7 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
       }
     });
 
-    servicesB.forEach((service) async {
+    servicesB?.forEach((service) async {
       if (service.uuid.toString() == Devices.deviceB.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
@@ -185,9 +187,9 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
   }
 
   void resetActionA() async {
-    List<BluetoothService> services = await widget.deviceA.discoverServices();
+    List<BluetoothService>? services = await widget.deviceA?.discoverServices();
 
-    services.forEach((service) async {
+    services?.forEach((service) async {
       if (service.uuid.toString() == Devices.deviceA.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
@@ -202,9 +204,9 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
   }
 
   void resetActionB() async {
-    List<BluetoothService> services = await widget.deviceB.discoverServices();
+    List<BluetoothService>? services = await widget.deviceB?.discoverServices();
 
-    services.forEach((service) async {
+    services?.forEach((service) async {
       if (service.uuid.toString() == Devices.deviceB.service.toLowerCase()) {
         var characteristics = service.characteristics;
         for (BluetoothCharacteristic c in characteristics) {
@@ -219,8 +221,8 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
   }
 
   void exit() {
-    widget.deviceA.disconnect();
-    widget.deviceB.disconnect();
+    widget.deviceA?.disconnect();
+    widget.deviceB?.disconnect();
   }
 
   @override

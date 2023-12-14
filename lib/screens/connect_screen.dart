@@ -5,10 +5,10 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
-import 'package:mitosportz/screens/multi_device_screen.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 
+import 'package:mitosportz/screens/multi_device_screen.dart';
 import 'package:mitosportz/screens/device_screen.dart';
 
 class ConnectScreen extends StatefulWidget {
@@ -45,33 +45,34 @@ class _ScannerScreen extends StatelessWidget {
   const _ScannerScreen({Key? key}) : super(key: key);
 
   void connect(BuildContext context) async {
-    BluetoothDevice deviceA;
-    BluetoothDevice deviceB;
+    BluetoothDevice? deviceA;
+    BluetoothDevice? deviceB;
     var _connectedCount = 0;
 
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
         if (result.device.platformName == Devices.deviceA.name) {
-          result.device.connect();
+          print('Detected Device A');
           deviceA = result.device;
-          print('Connected to ${result.device.platformName}');
+          result.device.connect();
+        }
 
-          if (result.device.platformName == Devices.deviceB.name) {
-            result.device.connect();
-            deviceB = result.device;
-            print('Connected to ${result.device.platformName}');
+        if (result.device.platformName == Devices.deviceB.name) {
+          print('Detected Device B');
+          deviceB = result.device;
+          result.device.connect();
+        }
 
-            FlutterBluePlus.stopScan();
-            Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    // builder: (context) => DeviceScreen(device: result.device)));
-                    builder: (context) => MultiDeviceScreen(
-                          deviceA: deviceA,
-                          deviceB: deviceB,
-                        )));
-          }
+        if ((deviceA != null) && (deviceB != null)) {
+          FlutterBluePlus.stopScan();
+          print('Both devices connected');
+
+          Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      MultiDeviceScreen(deviceA: deviceA, deviceB: deviceB)));
         }
       }
     });

@@ -32,7 +32,7 @@ class Device {
 
 class Devices {
   static Device deviceA = Device(
-      name: "Mitosportz_01_A",
+      name: "Mitosports_01_A",
       service: "20B10020-E8F2-537E-4F6C-D104768A1214",
       characteristicID: CharacteristicID(
           heartRate: "20B10022-E8F2-537E-4F6C-D104768A1214",
@@ -44,7 +44,7 @@ class Devices {
           laserDiodeDelay: "20B10026-E8F2-537E-4F6C-D104768A1214"));
 
   static Device deviceB = Device(
-      name: "Mitosportz_01_A",
+      name: "Mitosports_01_B",
       service: "20B10020-E8F2-537E-4F6C-D104768A1214",
       characteristicID: CharacteristicID(
           heartRate: "20B10022-E8F2-537E-4F6C-D104768A1214",
