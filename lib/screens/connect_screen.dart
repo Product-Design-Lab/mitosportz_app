@@ -44,16 +44,32 @@ class _ScannerScreen extends StatelessWidget {
   const _ScannerScreen({Key? key}) : super(key: key);
 
   void connect(BuildContext context) async {
+    BluetoothDevice? deviceA;
+    BluetoothDevice? deviceB;
+
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
         if (result.device.platformName == Devices.deviceA.name) {
-          FlutterBluePlus.stopScan();
           result.device.connect();
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DeviceScreen(device: result.device)));
+          deviceA = result.device;
+          print('Connected to ${result.device.platformName}');
+        }
+
+        if (result.device.platformName == Devices.deviceB.name) {
+          result.device.connect();
+          deviceB = result.device;
+          print('Connected to ${result.device.platformName}');
+        }
+
+        if ((deviceA != null) && (deviceB != null)) {
+          FlutterBluePlus.stopScan();
+          print('Both devices connected');
+
+          // Navigator.pushReplacement(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => DeviceScreen(device: result.device)));
         }
       }
     });
