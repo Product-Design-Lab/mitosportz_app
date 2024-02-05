@@ -331,7 +331,7 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
         Center(child: Text("Battery Level: $batteryLevelA%")),
         Center(child: Text("Heart Rate: $heartRateA bpm")),
         Center(child: Text("Blood Oxygen Saturation: $bloodOxygenA%")),
-        Center(child: Text("Session Duration: $sessionDurationA%")),
+        Center(child: Text("Session Duration: $sessionDurationA s")),
         Center(
             child: Text("Active Laser Proportion: $activeLaserProportionA%")),
         Center(child: Text("Laser Power Level: $laserPowerLevelA%")),
@@ -341,7 +341,7 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
         Center(child: Text("Battery Level: $batteryLevelB%")),
         Center(child: Text("Heart Rate: $heartRateB bpm")),
         Center(child: Text("Blood Oxygen Saturation: $bloodOxygenB%")),
-        Center(child: Text("Session Duration: $sessionDurationB%")),
+        Center(child: Text("Session Duration: $sessionDurationB s")),
         Center(
             child: Text("Active Laser Proportion: $activeLaserProportionB%")),
         Center(child: Text("Laser Power Level: $laserPowerLevelB%")),
