@@ -28,10 +28,16 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
   StreamSubscription? _heartRateCharacteristicSubscriptionA;
   StreamSubscription? _bloodOxygenCharacteristicSubscriptionA;
   StreamSubscription? _batteryLevelCharacteristicSubscriptionA;
+  StreamSubscription? _sessionDurationCharacteristicSubscriptionA;
+  StreamSubscription? _activeLaserProportionCharacteristicSubscriptionA;
+  StreamSubscription? _laserPowerLevelCharacteristicSubscriptionA;
 
   int heartRateA = 0;
   int bloodOxygenA = 0;
   int batteryLevelA = 0;
+  int sessionDurationA = 0;
+  int activeLaserProportionA = 0;
+  int laserPowerLevelA = 0;
 
   BluetoothConnectionState _connectionStateB =
       BluetoothConnectionState.disconnected;
@@ -41,10 +47,16 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
   StreamSubscription? _heartRateCharacteristicSubscriptionB;
   StreamSubscription? _bloodOxygenCharacteristicSubscriptionB;
   StreamSubscription? _batteryLevelCharacteristicSubscriptionB;
+  StreamSubscription? _sessionDurationCharacteristicSubscriptionB;
+  StreamSubscription? _activeLaserProportionCharacteristicSubscriptionB;
+  StreamSubscription? _laserPowerLevelCharacteristicSubscriptionB;
 
   int heartRateB = 0;
   int bloodOxygenB = 0;
   int batteryLevelB = 0;
+  int sessionDurationB = 0;
+  int activeLaserProportionB = 0;
+  int laserPowerLevelB = 0;
 
   @override
   void initState() {
@@ -86,6 +98,16 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
     _heartRateCharacteristicSubscriptionA?.cancel();
     _bloodOxygenCharacteristicSubscriptionA?.cancel();
     _batteryLevelCharacteristicSubscriptionA?.cancel();
+    _sessionDurationCharacteristicSubscriptionA?.cancel();
+    _activeLaserProportionCharacteristicSubscriptionA?.cancel();
+    _laserPowerLevelCharacteristicSubscriptionA?.cancel();
+
+    _heartRateCharacteristicSubscriptionB?.cancel();
+    _bloodOxygenCharacteristicSubscriptionB?.cancel();
+    _batteryLevelCharacteristicSubscriptionB?.cancel();
+    _sessionDurationCharacteristicSubscriptionB?.cancel();
+    _activeLaserProportionCharacteristicSubscriptionB?.cancel();
+    _laserPowerLevelCharacteristicSubscriptionB?.cancel();
     super.dispose();
   }
 
@@ -101,7 +123,19 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
         for (BluetoothCharacteristic c in characteristics) {
           List<int> value = await c.read();
 
-          // heartRateCharacteristic
+          // batteryLevel
+          if (c.uuid.toString() ==
+              Devices.deviceA.characteristicID.batteryLevel.toLowerCase()) {
+            _batteryLevelCharacteristicSubscriptionA =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                batteryLevelA = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // heartRate
           if (c.uuid.toString() ==
               Devices.deviceA.characteristicID.heartRate.toLowerCase()) {
             _heartRateCharacteristicSubscriptionA =
@@ -113,7 +147,7 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
             await c.setNotifyValue(true);
           }
 
-          // bloodOxygenCharacteristic
+          // bloodOxygen
           if (c.uuid.toString() ==
               Devices.deviceA.characteristicID.bloodOxygen.toLowerCase()) {
             _bloodOxygenCharacteristicSubscriptionA =
@@ -125,13 +159,38 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
             await c.setNotifyValue(true);
           }
 
-          // batteryLevelCharacteristic
+          // sessionDuration
           if (c.uuid.toString() ==
-              Devices.deviceA.characteristicID.batteryLevel.toLowerCase()) {
-            _batteryLevelCharacteristicSubscriptionA =
+              Devices.deviceA.characteristicID.sessionDuration.toLowerCase()) {
+            _sessionDurationCharacteristicSubscriptionA =
                 c.onValueReceived.listen((value) async {
               setState(() {
-                batteryLevelA = value[0];
+                sessionDurationA = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // activeLaserProportion
+          if (c.uuid.toString() ==
+              Devices.deviceA.characteristicID.activeLaserProportion
+                  .toLowerCase()) {
+            _activeLaserProportionCharacteristicSubscriptionA =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                activeLaserProportionA = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // laserPowerLevel
+          if (c.uuid.toString() ==
+              Devices.deviceA.characteristicID.laserPowerLevel.toLowerCase()) {
+            _laserPowerLevelCharacteristicSubscriptionA =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                laserPowerLevelA = value[0];
               });
             });
             await c.setNotifyValue(true);
@@ -146,7 +205,19 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
         for (BluetoothCharacteristic c in characteristics) {
           List<int> value = await c.read();
 
-          // heartRateCharacteristic
+          // batteryLevel
+          if (c.uuid.toString() ==
+              Devices.deviceB.characteristicID.batteryLevel.toLowerCase()) {
+            _batteryLevelCharacteristicSubscriptionB =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                batteryLevelB = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // heartRate
           if (c.uuid.toString() ==
               Devices.deviceB.characteristicID.heartRate.toLowerCase()) {
             _heartRateCharacteristicSubscriptionB =
@@ -158,7 +229,7 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
             await c.setNotifyValue(true);
           }
 
-          // bloodOxygenCharacteristic
+          // bloodOxygen
           if (c.uuid.toString() ==
               Devices.deviceB.characteristicID.bloodOxygen.toLowerCase()) {
             _bloodOxygenCharacteristicSubscriptionB =
@@ -170,13 +241,38 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
             await c.setNotifyValue(true);
           }
 
-          // batteryLevelCharacteristic
+          // sessionDuration
           if (c.uuid.toString() ==
-              Devices.deviceB.characteristicID.batteryLevel.toLowerCase()) {
-            _batteryLevelCharacteristicSubscriptionB =
+              Devices.deviceB.characteristicID.sessionDuration.toLowerCase()) {
+            _sessionDurationCharacteristicSubscriptionB =
                 c.onValueReceived.listen((value) async {
               setState(() {
-                batteryLevelB = value[0];
+                sessionDurationB = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // activeLaserProportion
+          if (c.uuid.toString() ==
+              Devices.deviceB.characteristicID.activeLaserProportion
+                  .toLowerCase()) {
+            _activeLaserProportionCharacteristicSubscriptionB =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                activeLaserProportionB = value[0];
+              });
+            });
+            await c.setNotifyValue(true);
+          }
+
+          // laserPowerLevel
+          if (c.uuid.toString() ==
+              Devices.deviceB.characteristicID.laserPowerLevel.toLowerCase()) {
+            _laserPowerLevelCharacteristicSubscriptionB =
+                c.onValueReceived.listen((value) async {
+              setState(() {
+                laserPowerLevelB = value[0];
               });
             });
             await c.setNotifyValue(true);
@@ -232,15 +328,23 @@ class _MultiDeviceScreenState extends State<MultiDeviceScreen> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
+        Center(child: Text("Battery Level: $batteryLevelA%")),
         Center(child: Text("Heart Rate: $heartRateA bpm")),
         Center(child: Text("Blood Oxygen Saturation: $bloodOxygenA%")),
-        Center(child: Text("Battery Level: $batteryLevelA%")),
+        Center(child: Text("Session Duration: $sessionDurationA%")),
+        Center(
+            child: Text("Active Laser Proportion: $activeLaserProportionA%")),
+        Center(child: Text("Laser Power Level: $laserPowerLevelA%")),
         MaterialButton(
             onPressed: resetActionA, child: const Text("Reset Device A")),
         const Spacer(),
+        Center(child: Text("Battery Level: $batteryLevelB%")),
         Center(child: Text("Heart Rate: $heartRateB bpm")),
         Center(child: Text("Blood Oxygen Saturation: $bloodOxygenB%")),
-        Center(child: Text("Battery Level: $batteryLevelB%")),
+        Center(child: Text("Session Duration: $sessionDurationB%")),
+        Center(
+            child: Text("Active Laser Proportion: $activeLaserProportionB%")),
+        Center(child: Text("Laser Power Level: $laserPowerLevelB%")),
         MaterialButton(
             onPressed: resetActionB, child: const Text("Reset Device B")),
       ],
