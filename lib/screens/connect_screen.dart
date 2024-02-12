@@ -7,9 +7,7 @@ import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/model/device.dart';
 
 import 'package:mitosportz/widgets/base.dart';
-
-import 'package:mitosportz/screens/multi_device_screen.dart';
-import 'package:mitosportz/screens/device_screen.dart';
+import 'package:mitosportz/widgets/device_widget.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({Key? key}) : super(key: key);
@@ -45,34 +43,16 @@ class _ScannerScreen extends StatelessWidget {
   const _ScannerScreen({Key? key}) : super(key: key);
 
   void connect(BuildContext context) async {
-    BluetoothDevice? deviceA;
-    BluetoothDevice? deviceB;
-    var _connectedCount = 0;
-
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
         if (result.device.platformName == Devices.deviceA.name) {
-          print('Detected Device A');
-          deviceA = result.device;
-          result.device.connect();
-        }
-
-        if (result.device.platformName == Devices.deviceB.name) {
-          print('Detected Device B');
-          deviceB = result.device;
-          result.device.connect();
-        }
-
-        if ((deviceA != null) && (deviceB != null)) {
           FlutterBluePlus.stopScan();
-          print('Both devices connected');
-
-          Navigator.pushReplacement(
+          result.device.connect();
+          Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      MultiDeviceScreen(deviceA: deviceA, deviceB: deviceB)));
+                  builder: (context) => DeviceWidget(device: result.device)));
         }
       }
     });
