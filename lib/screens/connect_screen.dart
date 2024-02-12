@@ -46,7 +46,7 @@ class _ScannerScreen extends StatelessWidget {
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
-        if (result.device.platformName == Devices.deviceA.name) {
+        if (result.device.platformName == Devices.list[0].name) {
           FlutterBluePlus.stopScan();
           result.device.connect();
           Navigator.push(

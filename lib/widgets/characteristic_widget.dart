@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:mitosportz/model/device.dart';
 
 class CharacteristicWidget extends StatefulWidget {
   final BluetoothCharacteristic characteristic;
@@ -48,8 +49,15 @@ class _CharacteristicWidgetState extends State<CharacteristicWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var label =
+        Characteristics.labels[c.uuid.toString().toUpperCase()] ?? "(Unnamed)";
+
     return Row(
-      children: [Text(_value.toString())],
+      children: [
+        Text(label),
+        Spacer(),
+        Text(_value.toString()),
+      ],
     );
   }
 }
