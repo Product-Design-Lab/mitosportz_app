@@ -18,30 +18,38 @@ class _CharacteristicWidgetState extends State<CharacteristicWidget> {
 
   BluetoothCharacteristic get c => widget.characteristic;
 
-  late StreamSubscription<List<int>> _lastValueSubscription;
+  late StreamSubscription<List<int>> _valueSubscription;
 
   @override
   void initState() {
     super.initState();
-    _lastValueSubscription =
-        widget.characteristic.lastValueStream.listen((value) {
-      _value = value;
-      if (mounted) {
-        setState(() {});
-      }
-    });
+    update();
   }
 
   @override
   void dispose() {
-    _lastValueSubscription.cancel();
+    _valueSubscription.cancel();
     super.dispose();
+  }
+
+  void update() async {
+    try {
+      await c.read();
+      _valueSubscription = c.onValueReceived.listen((value) async {
+        setState(() {
+          _value = value;
+        });
+      });
+      await c.setNotifyValue(true);
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      children: [Text(c.uuid.toString()), Text(_value.toString())],
+      children: [Text(_value.toString())],
     );
   }
 }

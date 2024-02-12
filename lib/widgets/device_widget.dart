@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:mitosportz/widgets/base.dart';
+import 'package:mitosportz/widgets/characteristic_widget.dart';
 
 class DeviceWidget extends StatefulWidget {
   final BluetoothDevice device;
@@ -62,11 +63,23 @@ class _DeviceWidgetState extends State<DeviceWidget> {
     return _services.map((s) => Text(s.uuid.toString())).toList();
   }
 
+  List<Widget> _buildCharacteristicWidgetList() {
+    List<Widget> w = [];
+
+    _services.forEach((s) {
+      s.characteristics.forEach((c) {
+        w.add(CharacteristicWidget(characteristic: c));
+      });
+    });
+
+    return w;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Base(
         child: Column(
-      children: _buildServicesList(),
+      children: _buildCharacteristicWidgetList(),
     ));
   }
 }
