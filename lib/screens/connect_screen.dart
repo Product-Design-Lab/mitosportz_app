@@ -43,16 +43,19 @@ class _ScannerScreen extends StatelessWidget {
   const _ScannerScreen({Key? key}) : super(key: key);
 
   void connect(BuildContext context) async {
+    var deviceInfo = RegisteredDevices.devices[0];
+
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
-        if (result.device.platformName == Devices.list[0].name) {
+        if (result.device.platformName == deviceInfo.name) {
           FlutterBluePlus.stopScan();
           result.device.connect();
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => DeviceWidget(device: result.device)));
+                  builder: (context) =>
+                      DeviceWidget(device: result.device, info: deviceInfo)));
         }
       }
     });

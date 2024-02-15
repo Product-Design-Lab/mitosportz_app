@@ -2,14 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:mitosportz/constants/text_styles.dart';
+import 'package:mitosportz/model/device.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/characteristic_widget.dart';
 
 class DeviceWidget extends StatefulWidget {
   final BluetoothDevice device;
+  final DeviceInfo info;
 
-  const DeviceWidget({Key? key, required this.device}) : super(key: key);
+  const DeviceWidget({Key? key, required this.device, required this.info})
+      : super(key: key);
 
   @override
   State<DeviceWidget> createState() => _DeviceWidgetState();
@@ -68,7 +72,12 @@ class _DeviceWidgetState extends State<DeviceWidget> {
 
     _services.forEach((s) {
       s.characteristics.forEach((c) {
-        w.add(CharacteristicWidget(characteristic: c));
+        var label = widget.info.characteristics[c.uuid.toString().toUpperCase()]
+            ["label"];
+        w.add(CharacteristicWidget(
+          characteristic: c,
+          label: label,
+        ));
       });
     });
 
@@ -79,7 +88,13 @@ class _DeviceWidgetState extends State<DeviceWidget> {
   Widget build(BuildContext context) {
     return Base(
         child: Column(
-      children: _buildCharacteristicWidgetList(),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(widget.info.name, style: TextStyles.subtitle),
+        Column(
+          children: _buildCharacteristicWidgetList(),
+        ),
+      ],
     ));
   }
 }
