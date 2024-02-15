@@ -51,12 +51,13 @@ class _CharacteristicWidgetState extends State<CharacteristicWidget> {
   Widget build(BuildContext context) {
     var label =
         Characteristics.labels[c.uuid.toString().toUpperCase()] ?? "(Unnamed)";
+    var value = (_value.isNotEmpty ? _value[0] : "null").toString();
 
     return Row(
       children: [
         Text(label),
         Spacer(),
-        Text(_value.toString()),
+        Text(value),
       ],
     );
   }
