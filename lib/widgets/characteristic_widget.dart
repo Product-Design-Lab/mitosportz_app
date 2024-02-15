@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/model/device.dart';
 
 class CharacteristicWidget extends StatefulWidget {
@@ -55,9 +56,9 @@ class _CharacteristicWidgetState extends State<CharacteristicWidget> {
 
     return Row(
       children: [
-        Text(label),
+        Text(label, style: TextStyles.body),
         Spacer(),
-        Text(value),
+        Text(value, style: TextStyles.body),
       ],
     );
   }

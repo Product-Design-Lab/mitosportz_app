@@ -12,6 +12,8 @@ class Characteristics {
   };
 }
 
+enum DataType { int, bool, array, none }
+
 class Device {
   final String name;
   final String serviceID;
