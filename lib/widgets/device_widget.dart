@@ -86,8 +86,7 @@ class _DeviceWidgetState extends State<DeviceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Base(
-        child: Column(
+    return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(widget.info.name, style: TextStyles.subtitle),
@@ -95,6 +94,6 @@ class _DeviceWidgetState extends State<DeviceWidget> {
           children: _buildCharacteristicWidgetList(),
         ),
       ],
-    ));
+    );
   }
 }

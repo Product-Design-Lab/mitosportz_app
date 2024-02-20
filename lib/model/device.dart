@@ -1,3 +1,5 @@
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 const characteristics = {
   "20B10021-E8F2-537E-4F6C-D104768A1214": {
     "label": "Battery Level",
@@ -38,6 +40,16 @@ const characteristics = {
 };
 
 enum DataType { int, bool, array, none }
+
+class Device {
+  final DeviceInfo info;
+  final BluetoothDevice device;
+
+  Device({
+    required this.info,
+    required this.device,
+  });
+}
 
 class DeviceInfo {
   final String name;

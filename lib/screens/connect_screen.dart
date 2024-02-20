@@ -5,6 +5,7 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+import 'package:mitosportz/screens/devices_screen.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
@@ -48,14 +49,17 @@ class _ScannerScreen extends StatelessWidget {
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
+        print(result.device.platformName);
         if (result.device.platformName == deviceInfo.name) {
           FlutterBluePlus.stopScan();
           result.device.connect();
+          print("CONNECTED");
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      DeviceWidget(device: result.device, info: deviceInfo)));
+                  builder: (context) => DevicesScreen(devices: [
+                        Device(info: deviceInfo, device: result.device)
+                      ])));
         }
       }
     });
