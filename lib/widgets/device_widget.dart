@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
 import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/model/device.dart';
 
-import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/characteristic_widget.dart';
 
 class DeviceWidget extends StatefulWidget {
@@ -68,6 +68,15 @@ class _DeviceWidgetState extends State<DeviceWidget> {
   }
 
   List<Widget> _buildCharacteristicWidgetList() {
+    if (_services.isEmpty) {
+      return [
+        const Text(
+          "Connecting...",
+          style: TextStyles.body,
+        )
+      ];
+    }
+
     List<Widget> w = [];
 
     _services.forEach((s) {

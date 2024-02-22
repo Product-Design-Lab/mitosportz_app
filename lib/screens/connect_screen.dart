@@ -87,10 +87,42 @@ class _ScannerScreen extends StatelessWidget {
     });
   }
 
+  void prepare(BuildContext context) async {
+    List<Device> detectedDevices = [];
+
+    await FlutterBluePlus.startScan();
+    FlutterBluePlus.scanResults.listen((results) {
+      for (ScanResult result in results) {
+        RegisteredDevices.devices.forEach((registeredDevice) {
+          bool alreadyRegisted = detectedDevices.any((detectedDevice) =>
+              detectedDevice.device.platformName == result.device.platformName);
+          if ((result.device.platformName == registeredDevice.name) &&
+              !alreadyRegisted) {
+            detectedDevices
+                .add(Device(info: registeredDevice, device: result.device));
+          }
+        });
+
+        if (detectedDevices.length == RegisteredDevices.devices.length) {
+          FlutterBluePlus.stopScan();
+          detectedDevices.forEach((detectedDevice) async {
+            await detectedDevice.device.connect();
+            print('Connected to ${detectedDevice.device.platformName}');
+          });
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      DevicesScreen(devices: detectedDevices)));
+        }
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     // connect(context);
-    scan();
+    prepare(context);
     return const _StatusScreen(text: "Connecting...");
   }
 }
