@@ -70,10 +70,10 @@ class RegisteredDevices {
       serviceID: "20B10020-E8F2-537E-4F6C-D104768A1214",
       characteristics: characteristics,
     ),
-    DeviceInfo(
-      name: "Mitosports_01_B",
-      serviceID: "20B10020-E8F2-537E-4F6C-D104768A1214",
-      characteristics: characteristics,
-    ),
+    // DeviceInfo(
+    //   name: "Mitosports_01_B",
+    //   serviceID: "20B10020-E8F2-537E-4F6C-D104768A1214",
+    //   characteristics: characteristics,
+    // ),
   ];
 }
