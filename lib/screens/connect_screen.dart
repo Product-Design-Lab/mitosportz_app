@@ -43,56 +43,13 @@ class _ConnectScreenState extends State<ConnectScreen> {
 class _ScannerScreen extends StatelessWidget {
   const _ScannerScreen({Key? key}) : super(key: key);
 
-  void connect(BuildContext context) async {
-    var deviceInfo = RegisteredDevices.devices[0];
-
-    await FlutterBluePlus.startScan();
-    FlutterBluePlus.scanResults.listen((results) {
-      for (ScanResult result in results) {
-        print(result.device.platformName);
-        if (result.device.platformName == deviceInfo.name) {
-          FlutterBluePlus.stopScan();
-          result.device.connect();
-          print("CONNECTED");
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => DevicesScreen(devices: [
-                        Device(info: deviceInfo, device: result.device)
-                      ])));
-        }
-      }
-    });
-  }
-
-  void scan() async {
-    var connectedDevices = [];
-
-    RegisteredDevices.devices.forEach((device) async {
-      await FlutterBluePlus.startScan();
-      FlutterBluePlus.scanResults.listen((results) {
-        for (ScanResult result in results) {
-          print(result.device.platformName);
-          if (result.device.platformName == device.name) {
-            FlutterBluePlus.stopScan();
-            result.device.connect();
-            print('Connected to ${result.device.platformName}');
-            connectedDevices.add(Device(info: device, device: result.device));
-          }
-          if (connectedDevices.length == RegisteredDevices.devices.length) {
-            print('All devices connected!');
-          }
-        }
-      });
-    });
-  }
-
-  void prepare(BuildContext context) async {
+  void scan(BuildContext context) async {
     List<Device> detectedDevices = [];
 
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) {
       for (ScanResult result in results) {
+        print(result.device.platformName);
         RegisteredDevices.devices.forEach((registeredDevice) {
           bool alreadyRegisted = detectedDevices.any((detectedDevice) =>
               detectedDevice.device.platformName == result.device.platformName);
@@ -121,8 +78,7 @@ class _ScannerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // connect(context);
-    prepare(context);
+    scan(context);
     return const _StatusScreen(text: "Connecting...");
   }
 }
