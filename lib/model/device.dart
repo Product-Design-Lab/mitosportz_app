@@ -6,40 +6,28 @@ const characteristics = {
     "type": DataType.int,
   },
   "20B10022-E8F2-537E-4F6C-D104768A1214": {
-    "label": "Heart Rate",
-    "type": DataType.int,
-  },
-  "20B10023-E8F2-537E-4F6C-D104768A1214": {
-    "label": "Blood Oxygen",
-    "type": DataType.int,
-  },
-  "20B10024-E8F2-537E-4F6C-D104768A1214": {
     "label": "Session Duration",
     "type": DataType.int,
   },
+  "20B10023-E8F2-537E-4F6C-D104768A1214": {
+    "label": "LED Timing",
+    "type": DataType.string,
+  },
+  "20B10024-E8F2-537E-4F6C-D104768A1214": {
+    "label": "Laser Timing",
+    "type": DataType.string,
+  },
   "20B10025-E8F2-537E-4F6C-D104768A1214": {
-    "label": "Active Laser Proportion",
+    "label": "Active Lasers",
     "type": DataType.int,
   },
   "20B10026-E8F2-537E-4F6C-D104768A1214": {
-    "label": "Laser Power Level",
+    "label": "Laser Power",
     "type": DataType.int,
   },
   "20B10027-E8F2-537E-4F6C-D104768A1214": {
-    "label": "LED Timing",
-    "type": DataType.int,
-  },
-  "20B10028-E8F2-537E-4F6C-D104768A1214": {
-    "label": "Laser Timing",
-    "type": DataType.int,
-  },
-  "20B10029-E8F2-537E-4F6C-D104768A1214": {
     "label": "Reset",
     "type": DataType.int,
-  },
-  "20B10030-E8F2-537E-4F6C-D104768A1214": {
-    "label": "String",
-    "type": DataType.string,
   },
 };
 
@@ -70,7 +58,7 @@ class DeviceInfo {
 class RegisteredDevices {
   static List<DeviceInfo> devices = [
     DeviceInfo(
-      name: "Mitosports_01_A",
+      name: "MS_01_A",
       serviceID: "20B10020-E8F2-537E-4F6C-D104768A1214",
       characteristics: characteristics,
     ),

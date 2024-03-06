@@ -3,6 +3,7 @@ import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:mitosportz/constants/button_styles.dart';
 
 import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/model/device.dart';
@@ -64,14 +65,12 @@ class _DeviceWidgetState extends State<DeviceWidget> {
     }
   }
 
-  void action() async {
+  void set(String array) async {
     try {
-      update();
       _services.forEach((s) async {
         s.characteristics.forEach((c) {
           if (c.uuid.toString().toUpperCase() ==
-              "20B10030-E8F2-537E-4F6C-D104768A1214") {
-            var array = "AAAAAAAA";
+              "20B10023-E8F2-537E-4F6C-D104768A1214") {
             c.write(utf8.encode(array));
           }
         });
@@ -113,16 +112,39 @@ class _DeviceWidgetState extends State<DeviceWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(widget.info.name, style: TextStyles.subtitle),
-        Column(
-          children: _buildCharacteristicWidgetList(),
-        ),
-        ElevatedButton(
-            onPressed: () => action(), child: const Text("Send New Array"))
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(widget.info.name, style: TextStyles.subtitle),
+          Column(
+            children: _buildCharacteristicWidgetList(),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton(
+                      onPressed: () => set("11110000"),
+                      style: ButtonStyles.buttonDefault,
+                      child: const Text("Set LED Timing")),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16),
+                    child: ElevatedButton(
+                        onPressed: () => set("00000000"),
+                        style: ButtonStyles.buttonDefault,
+                        child: const Text("Clear LED Timing")),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
