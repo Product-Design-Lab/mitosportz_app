@@ -37,9 +37,13 @@ const characteristics = {
     "label": "Reset",
     "type": DataType.int,
   },
+  "20B10030-E8F2-537E-4F6C-D104768A1214": {
+    "label": "String",
+    "type": DataType.string,
+  },
 };
 
-enum DataType { int, bool, array, none }
+enum DataType { int, bool, string, none }
 
 class Device {
   final DeviceInfo info;

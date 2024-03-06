@@ -81,11 +81,11 @@ class _DeviceWidgetState extends State<DeviceWidget> {
 
     _services.forEach((s) {
       s.characteristics.forEach((c) {
-        var label = widget.info.characteristics[c.uuid.toString().toUpperCase()]
-            ["label"];
+        var info = widget.info.characteristics[c.uuid.toString().toUpperCase()];
         w.add(CharacteristicWidget(
           characteristic: c,
-          label: label,
+          label: info["label"],
+          type: info["type"],
         ));
       });
     });

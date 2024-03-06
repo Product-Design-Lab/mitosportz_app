@@ -1,16 +1,22 @@
 import 'dart:async';
+import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:mitosportz/constants/text_styles.dart';
+import 'package:mitosportz/model/device.dart';
 
 class CharacteristicWidget extends StatefulWidget {
   final BluetoothCharacteristic characteristic;
   final String label;
+  final DataType type;
 
   const CharacteristicWidget(
-      {Key? key, required this.characteristic, required this.label})
+      {Key? key,
+      required this.characteristic,
+      required this.label,
+      required this.type})
       : super(key: key);
 
   @override
@@ -50,15 +56,28 @@ class _CharacteristicWidgetState extends State<CharacteristicWidget> {
     }
   }
 
+  String format(List<int> value) {
+    if (value.isEmpty) {
+      return "null";
+    }
+
+    switch (widget.type) {
+      case DataType.int:
+        return value[0].toString();
+      case DataType.string:
+        return utf8.decode(value).toString();
+      default:
+        return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    var value = (_value.isNotEmpty ? _value[0] : "null").toString();
-
     return Row(
       children: [
         Text(widget.label, style: TextStyles.body),
         Spacer(),
-        Text(value, style: TextStyles.body),
+        Text(format(_value), style: TextStyles.body),
       ],
     );
   }
