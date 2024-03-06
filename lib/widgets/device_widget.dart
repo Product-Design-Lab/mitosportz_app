@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert' show utf8;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -63,6 +64,23 @@ class _DeviceWidgetState extends State<DeviceWidget> {
     }
   }
 
+  void action() async {
+    try {
+      update();
+      _services.forEach((s) async {
+        s.characteristics.forEach((c) {
+          if (c.uuid.toString().toUpperCase() ==
+              "20B10030-E8F2-537E-4F6C-D104768A1214") {
+            var array = "AAAAAAAA";
+            c.write(utf8.encode(array));
+          }
+        });
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
   List<Widget> _buildServicesList() {
     return _services.map((s) => Text(s.uuid.toString())).toList();
   }
@@ -102,6 +120,8 @@ class _DeviceWidgetState extends State<DeviceWidget> {
         Column(
           children: _buildCharacteristicWidgetList(),
         ),
+        ElevatedButton(
+            onPressed: () => action(), child: const Text("Send New Array"))
       ],
     );
   }
