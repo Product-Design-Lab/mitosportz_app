@@ -58,12 +58,12 @@ class DeviceInfo {
 class RegisteredDevices {
   static List<DeviceInfo> devices = [
     DeviceInfo(
-      name: "MS_01_A",
+      name: "MS_01_A-1234",
       serviceID: "20B10020-E8F2-537E-4F6C-D104768A1214",
       characteristics: characteristics,
     ),
     // DeviceInfo(
-    //   name: "Mitosports_01_B",
+    //   name: "MS_01_B-1234",
     //   serviceID: "20B10020-E8F2-537E-4F6C-D104768A1214",
     //   characteristics: characteristics,
     // ),
