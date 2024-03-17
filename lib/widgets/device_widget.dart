@@ -128,7 +128,7 @@ class _DeviceWidgetState extends State<DeviceWidget> {
                 Expanded(
                   child: ElevatedButton(
                       onPressed: () => set("11110000"),
-                      style: ButtonStyles.buttonDefault,
+                      style: ButtonStyles.buttonPrimary,
                       child: const Text("Set LED Timing")),
                 ),
                 Expanded(
@@ -136,7 +136,7 @@ class _DeviceWidgetState extends State<DeviceWidget> {
                     padding: const EdgeInsets.only(left: 16),
                     child: ElevatedButton(
                         onPressed: () => set("00000000"),
-                        style: ButtonStyles.buttonDefault,
+                        style: ButtonStyles.buttonPrimary,
                         child: const Text("Clear LED Timing")),
                   ),
                 ),
