@@ -13,7 +13,7 @@ class TextStyles {
 
   static const TextStyle title = TextStyle(
     fontSize: 30,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
     color: AppColors.labelPrimary,
     letterSpacing: -1,
     height: 1.2,
