@@ -11,18 +11,50 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
+  String? error;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   void action(String value) {
-    print(value);
+    setState(() {
+      error = _validator(value);
+    });
+    if (error == null) {
+      print(value);
+    }
+  }
+
+  bool _isNumeric(String value) {
+    return num.tryParse(value) != null;
+  }
+
+  String? _validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter a 4 digit code";
+    }
+    if (value.length != 4) {
+      return "Please enter a 4 digit code";
+    }
+    if (!_isNumeric(value)) {
+      return "Please enter digits";
+    }
+    return null;
   }
 
   @override
   Widget build(BuildContext context) {
     return Base(
         child: TextInputWidget(
-            title: "Enter Pairing Code",
-            subtitle: "Use your 4-digit device code to connect",
-            hintText: "1234",
-            action: action,
-            actionText: "Connect"));
+      title: "Enter Pairing Code",
+      subtitle: "Use your 4-digit device code to connect",
+      hintText: "1234",
+      action: action,
+      actionText: "Connect",
+      errorText: error,
+      keyboardType: TextInputType.number,
+    ));
   }
 }

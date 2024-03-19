@@ -10,22 +10,26 @@ class TextInputWidget extends StatefulWidget {
   final String hintText;
   final ValueSetter<String> action;
   final String actionText;
+  final String? errorText;
+  final TextInputType? keyboardType;
 
-  const TextInputWidget(
-      {Key? key,
-      required this.title,
-      required this.subtitle,
-      required this.hintText,
-      required this.action,
-      required this.actionText})
-      : super(key: key);
+  const TextInputWidget({
+    Key? key,
+    required this.title,
+    required this.subtitle,
+    required this.hintText,
+    required this.action,
+    required this.actionText,
+    required this.errorText,
+    this.keyboardType,
+  }) : super(key: key);
 
   @override
   State<TextInputWidget> createState() => _TextInputWidgetState();
 }
 
 class _TextInputWidgetState extends State<TextInputWidget> {
-  final textEditingController = TextEditingController();
+  final _textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -34,12 +38,25 @@ class _TextInputWidgetState extends State<TextInputWidget> {
 
   Widget textInputField() {
     return TextFormField(
-      controller: textEditingController,
+      controller: _textEditingController,
       style: TextStyles.largeTitle,
       textAlign: TextAlign.center,
+      keyboardType: widget.keyboardType,
       decoration: InputDecoration(
           border: InputBorder.none,
           hintText: widget.hintText,
+          error: (widget.errorText != null)
+              ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      widget.errorText!,
+                      style:
+                          TextStyles.smallBody.copyWith(color: AppColors.red),
+                    )
+                  ],
+                )
+              : null,
           hintStyle:
               TextStyles.largeTitle.copyWith(color: AppColors.labelSecondary)),
     );
@@ -67,7 +84,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: ElevatedButton(
-        onPressed: () => {widget.action(textEditingController.text)},
+        onPressed: () => {widget.action(_textEditingController.text)},
         style: ButtonStyles.buttonPrimary,
         child: Text(widget.actionText),
       ),
