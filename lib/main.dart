@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import 'package:mitosportz/constants/colors.dart';
+import 'package:mitosportz/constants/widget_styles.dart';
 
 import 'package:mitosportz/screens/input_screen.dart';
 
@@ -35,12 +35,7 @@ class MainApp extends StatelessWidget {
       routes: {
         "/connect": (context) => const InputScreen(),
       },
-      theme: ThemeData(
-          primaryColor: AppColors.labelPrimary,
-          textSelectionTheme: const TextSelectionThemeData(
-              cursorColor: AppColors.labelPrimary,
-              selectionColor: AppColors.background,
-              selectionHandleColor: AppColors.buttonLabelPrimary)),
+      theme: WidgetStyles.baseTheme,
     );
   }
 }
