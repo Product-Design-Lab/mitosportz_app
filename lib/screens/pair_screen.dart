@@ -36,7 +36,9 @@ class _PairingScreenState extends State<PairingScreen> {
       setState(() {
         pairingCode = value;
       });
-      _scan();
+      // _scan();
+      print("Pairing code $pairingCode");
+      Navigator.pushReplacementNamed(context, "/dashboard");
     }
   }
 
