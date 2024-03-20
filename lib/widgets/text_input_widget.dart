@@ -58,7 +58,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
                 )
               : null,
           hintStyle:
-              TextStyles.largeTitle.copyWith(color: AppColors.labelSecondary)),
+              TextStyles.largeTitle.copyWith(color: AppColors.labelTertiary)),
     );
   }
 

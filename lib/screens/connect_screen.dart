@@ -8,7 +8,6 @@ import 'package:mitosportz/model/device.dart';
 import 'package:mitosportz/screens/devices_screen.dart';
 
 import 'package:mitosportz/widgets/base.dart';
-import 'package:mitosportz/widgets/device_widget.dart';
 
 class ConnectScreen extends StatefulWidget {
   const ConnectScreen({Key? key}) : super(key: key);
