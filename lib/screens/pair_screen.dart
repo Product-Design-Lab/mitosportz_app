@@ -96,7 +96,7 @@ class _PairingScreenState extends State<PairingScreen> {
     return TextInputWidget(
       title: "Enter Pairing Code",
       subtitle: "Use your 4-digit device code to connect",
-      hintText: "1234",
+      hintText: "••••",
       action: action,
       actionText: "Connect",
       errorText: error,
