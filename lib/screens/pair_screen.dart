@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:mitosportz/constants/colors.dart';
+import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/text_input_widget.dart';
@@ -77,10 +79,21 @@ class _PairingScreenState extends State<PairingScreen> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Base(
-        child: TextInputWidget(
+  Widget _emptyState() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: Text("Enable Bluetooth to connect",
+              style: TextStyles.body.copyWith(color: AppColors.labelTertiary)),
+        )
+      ],
+    );
+  }
+
+  Widget _inputState() {
+    return TextInputWidget(
       title: "Enter Pairing Code",
       subtitle: "Use your 4-digit device code to connect",
       hintText: "1234",
@@ -88,6 +101,21 @@ class _PairingScreenState extends State<PairingScreen> {
       actionText: "Connect",
       errorText: error,
       keyboardType: TextInputType.number,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Base(
+        child: StreamBuilder<BluetoothAdapterState>(
+      stream: FlutterBluePlus.adapterState,
+      initialData: BluetoothAdapterState.unknown,
+      builder: (context, snapshot) {
+        if (snapshot.data == BluetoothAdapterState.on) {
+          return _inputState();
+        }
+        return _emptyState();
+      },
     ));
   }
 }
