@@ -17,7 +17,22 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  bool devicesReady() {
+  @override
+  void initState() {
+    super.initState();
+    connect();
+  }
+
+  void connect() async {
+    if (_devicesReady()) {
+      widget.devices.forEach((device) async {
+        await device?.connect();
+        print('Connected to ${device?.platformName}');
+      });
+    }
+  }
+
+  bool _devicesReady() {
     bool ready = true;
     widget.devices.forEach((device) {
       if (device == null) {
@@ -56,14 +71,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _metricsTab() {
-    return const Column(
+    return Column(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            DeviceWidget(),
-            SizedBox(width: 16),
-            DeviceWidget(),
+            DeviceWidget(name: "Left Arm", device: widget.devices[0]),
+            const SizedBox(width: 16),
+            const DeviceWidget(name: "Right Arm")
           ],
         )
       ],
@@ -72,7 +87,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _body() {
     return TabBarView(children: [
-      devicesReady() ? _metricsTab() : _empty("No Devices Connected"),
+      _devicesReady() ? _metricsTab() : _empty("No Devices Connected"),
       _empty("No Devices Connected")
     ]);
   }
