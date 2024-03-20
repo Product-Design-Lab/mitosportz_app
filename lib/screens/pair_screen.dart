@@ -3,6 +3,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
+import 'package:mitosportz/screens/dashboard_screen.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/text_input_widget.dart';
@@ -33,12 +34,11 @@ class _PairingScreenState extends State<PairingScreen> {
       error = _validator(value);
     });
     if (error == null) {
+      FocusScope.of(context).unfocus();
       setState(() {
         pairingCode = value;
       });
-      // _scan();
-      print("Pairing code $pairingCode");
-      Navigator.pushReplacementNamed(context, "/dashboard");
+      _scan();
     }
   }
 
@@ -59,10 +59,14 @@ class _PairingScreenState extends State<PairingScreen> {
     return null;
   }
 
-  void _connect() async {
+  void _connect() {
     if (deviceA != null) {
-      await deviceA?.connect();
-      print('Connected to ${deviceA?.platformName}');
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DashboardScreen(
+                    devices: [deviceA],
+                  )));
     }
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
@@ -7,13 +8,32 @@ import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({Key? key}) : super(key: key);
+  final List<BluetoothDevice?> devices;
+
+  const DashboardScreen({Key? key, required this.devices}) : super(key: key);
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  bool devicesReady() {
+    bool ready = true;
+    widget.devices.forEach((device) {
+      if (device == null) {
+        ready = false;
+      }
+    });
+    return ready;
+  }
+
+  Widget _empty(String text) {
+    return Center(
+      child: Text(text,
+          style: TextStyles.body.copyWith(color: AppColors.labelTertiary)),
+    );
+  }
+
   Widget _tab(String text) {
     return Tab(height: 56, child: Text(text, style: TextStyles.body));
   }
@@ -52,8 +72,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _body() {
     return TabBarView(children: [
-      _metricsTab(),
-      const Center(child: Text("Hello B")),
+      devicesReady() ? _metricsTab() : _empty("No Devices Connected"),
+      _empty("No Devices Connected")
     ]);
   }
 

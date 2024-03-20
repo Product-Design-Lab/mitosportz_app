@@ -41,6 +41,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       controller: _textEditingController,
       style: TextStyles.largeTitle,
       textAlign: TextAlign.center,
+      autofocus: true,
       keyboardType: widget.keyboardType,
       decoration: InputDecoration(
           border: InputBorder.none,
@@ -84,7 +85,9 @@ class _TextInputWidgetState extends State<TextInputWidget> {
     return Padding(
       padding: const EdgeInsets.only(top: 16),
       child: ElevatedButton(
-        onPressed: () => {widget.action(_textEditingController.text)},
+        onPressed: () {
+          widget.action(_textEditingController.text);
+        },
         style: ButtonStyles.buttonPrimary,
         child: Text(widget.actionText),
       ),

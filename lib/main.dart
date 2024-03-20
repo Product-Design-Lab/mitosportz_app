@@ -6,7 +6,6 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:mitosportz/constants/widget_styles.dart';
 
 import 'package:mitosportz/screens/pair_screen.dart';
-import 'package:mitosportz/screens/dashboard_screen.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -35,7 +34,6 @@ class MainApp extends StatelessWidget {
       initialRoute: "/pair",
       routes: {
         "/pair": (context) => const PairingScreen(),
-        "/dashboard": (context) => const DashboardScreen(),
       },
       theme: WidgetStyles.baseTheme,
     );
