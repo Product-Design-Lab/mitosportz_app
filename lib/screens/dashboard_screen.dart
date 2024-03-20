@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
+
 import 'package:mitosportz/widgets/base.dart';
+import 'package:mitosportz/widgets/device_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -33,10 +35,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  Widget _metricsTab() {
+    return const Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            DeviceWidget(),
+            SizedBox(width: 16),
+            DeviceWidget(),
+          ],
+        )
+      ],
+    );
+  }
+
   Widget _body() {
-    return const TabBarView(children: [
-      Center(child: Text("Hello A")),
-      Center(child: Text("Hello B")),
+    return TabBarView(children: [
+      _metricsTab(),
+      const Center(child: Text("Hello B")),
     ]);
   }
 
