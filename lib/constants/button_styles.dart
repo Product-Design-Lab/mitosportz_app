@@ -28,9 +28,13 @@ class ButtonStyles {
       shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))));
 
-  static ButtonStyle buttonCard = const ButtonStyle(
-    backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
-    shadowColor: MaterialStatePropertyAll<Color>(Colors.transparent),
-    padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(0)),
-  );
+  static ButtonStyle buttonCard = ButtonStyle(
+      surfaceTintColor:
+          const MaterialStatePropertyAll<Color>(AppColors.backgroundElevated),
+      backgroundColor:
+          const MaterialStatePropertyAll<Color>(AppColors.backgroundElevated),
+      shadowColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
+      padding: const MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(0)),
+      shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))));
 }

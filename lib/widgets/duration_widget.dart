@@ -107,9 +107,8 @@ class _DurationWidgetState extends State<DurationWidget> {
       child: ElevatedButton(
         style: ButtonStyles.buttonCard,
         onPressed: _action,
-        child: Container(
+        child: SizedBox(
           height: 168,
-          decoration: WidgetStyles.elevatedCard,
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
