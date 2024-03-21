@@ -14,6 +14,8 @@ class Base extends StatelessWidget {
         backgroundColor: AppColors.background,
         appBar: appBar,
         body: SafeArea(
-            child: Padding(padding: const EdgeInsets.all(16), child: child)));
+            child: Padding(
+                padding: const EdgeInsets.only(top: 16, bottom: 16),
+                child: child)));
   }
 }

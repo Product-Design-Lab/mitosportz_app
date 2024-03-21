@@ -76,32 +76,38 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   Widget _metricsTab() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DeviceWidget(name: "Left Arm", device: widget.devices[0]),
-            const SizedBox(width: 16),
-            const DeviceWidget(name: "Right Arm")
-          ],
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              DeviceWidget(name: "Left Arm", device: widget.devices[0]),
+              const SizedBox(width: 16),
+              const DeviceWidget(name: "Right Arm")
+            ],
+          )
+        ],
+      ),
     );
   }
 
   Widget _controlsTab() {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            DurationWidget(device: widget.devices[0]),
-            const SizedBox(width: 16),
-            Expanded(child: Container())
-          ],
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              DurationWidget(device: widget.devices[0]),
+              const SizedBox(width: 16),
+              Expanded(child: Container())
+            ],
+          )
+        ],
+      ),
     );
   }
 

@@ -76,11 +76,8 @@ class _DurationWidgetState extends State<DurationWidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 4),
-          child: Text("Duration",
-              style: TextStyles.body.copyWith(color: AppColors.blue)),
-        ),
+        Text("Duration",
+            style: TextStyles.body.copyWith(color: AppColors.blue)),
         Text("Edit",
             style:
                 TextStyles.smallBody.copyWith(color: AppColors.labelSecondary))
