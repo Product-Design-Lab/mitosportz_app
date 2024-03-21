@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:mitosportz/constants/button_styles.dart';
 
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
@@ -68,9 +69,23 @@ class _DurationWidgetState extends State<DurationWidget> {
     });
   }
 
+  void _action() {}
+
   Widget _title() {
-    return Text("Duration",
-        style: TextStyles.body.copyWith(color: AppColors.blue));
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 4),
+          child: Text("Duration",
+              style: TextStyles.body.copyWith(color: AppColors.blue)),
+        ),
+        Text("Edit",
+            style:
+                TextStyles.smallBody.copyWith(color: AppColors.labelSecondary))
+      ],
+    );
   }
 
   Widget _status() {
@@ -92,15 +107,19 @@ class _DurationWidgetState extends State<DurationWidget> {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        height: 168,
-        decoration: WidgetStyles.elevatedCard,
-        child: Padding(
-          padding: const EdgeInsets.all(24.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [_title(), _status()]),
+      child: ElevatedButton(
+        style: ButtonStyles.buttonCard,
+        onPressed: _action,
+        child: Container(
+          height: 168,
+          decoration: WidgetStyles.elevatedCard,
+          child: Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [_title(), _status()]),
+          ),
         ),
       ),
     );

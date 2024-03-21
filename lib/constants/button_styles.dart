@@ -27,4 +27,10 @@ class ButtonStyles {
       padding: const MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(17.0)),
       shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(32.0))));
+
+  static ButtonStyle buttonCard = const ButtonStyle(
+    backgroundColor: MaterialStatePropertyAll<Color>(Colors.transparent),
+    shadowColor: MaterialStatePropertyAll<Color>(Colors.transparent),
+    padding: MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(0)),
+  );
 }
