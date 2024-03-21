@@ -6,6 +6,7 @@ import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
+import 'package:mitosportz/widgets/duration_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<BluetoothDevice?> devices;
@@ -89,10 +90,25 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
+  Widget _controlsTab() {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            DurationWidget(device: widget.devices[0]),
+            const SizedBox(width: 16),
+            Expanded(child: Container())
+          ],
+        )
+      ],
+    );
+  }
+
   Widget _body() {
     return TabBarView(children: [
       _devicesReady() ? _metricsTab() : _empty("No Devices Connected"),
-      _empty("Not Implemented")
+      _devicesReady() ? _controlsTab() : _empty("No Devices Connected"),
     ]);
   }
 
