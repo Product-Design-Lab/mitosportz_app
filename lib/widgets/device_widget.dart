@@ -6,6 +6,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/constants/widget_styles.dart';
+
 import 'package:mitosportz/model/device.dart';
 
 import 'package:mitosportz/widgets/progress_widget.dart';
