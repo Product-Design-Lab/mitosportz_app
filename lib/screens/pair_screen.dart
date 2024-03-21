@@ -59,28 +59,25 @@ class _PairingScreenState extends State<PairingScreen> {
     return null;
   }
 
-  void _connect() {
-    if (deviceA != null) {
-      Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-              builder: (context) => DashboardScreen(
-                    devices: [deviceA],
-                  )));
-    }
+  void _segue() {
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (context) => DashboardScreen(
+                  devices: [deviceA],
+                )));
   }
 
   void _scan() async {
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) async {
       for (ScanResult result in results) {
-        print(result.device.platformName);
-        if (result.device.platformName == "${devicePrefix}_A_${pairingCode}") {
+        if (result.device.platformName == "${devicePrefix}_A_$pairingCode") {
           deviceA = result.device;
         }
         if (deviceA != null) {
           FlutterBluePlus.stopScan();
-          _connect();
+          _segue();
         }
       }
     });

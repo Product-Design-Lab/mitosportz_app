@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -23,15 +25,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     connect();
   }
 
-  void connect() async {
-    if (_devicesReady()) {
-      widget.devices.forEach((device) async {
-        await device?.connect();
-        print('Connected to ${device?.platformName}');
-      });
-    }
-  }
-
   bool _devicesReady() {
     bool ready = true;
     widget.devices.forEach((device) {
@@ -40,6 +33,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
       }
     });
     return ready;
+  }
+
+  void connect() async {
+    if (_devicesReady()) {
+      widget.devices.forEach((device) {
+        device?.connectionState.listen((state) async {
+          if (state == BluetoothConnectionState.disconnected) {
+            await device.connect();
+            print("Connected to ${device.platformName}");
+          }
+        });
+      });
+    }
   }
 
   Widget _empty(String text) {
@@ -88,7 +94,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   Widget _body() {
     return TabBarView(children: [
       _devicesReady() ? _metricsTab() : _empty("No Devices Connected"),
-      _empty("No Devices Connected")
+      _empty("Not Implemented")
     ]);
   }
 
