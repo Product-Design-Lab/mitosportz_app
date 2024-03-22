@@ -89,8 +89,13 @@ class _DurationWidgetState extends State<DurationWidget> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.end,
       children: [
-        Text("$duration",
-            style: TextStyles.title.copyWith(color: AppColors.blue)),
+        AnimatedSwitcher(
+          duration: const Duration(milliseconds: 250),
+          switchOutCurve: Curves.decelerate,
+          child: Text("$duration",
+              key: ValueKey<int>(duration),
+              style: TextStyles.title.copyWith(color: AppColors.blue)),
+        ),
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 2),
           child: Text("secs",
