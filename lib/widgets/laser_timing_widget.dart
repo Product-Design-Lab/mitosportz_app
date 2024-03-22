@@ -9,6 +9,7 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+import 'package:mitosportz/widgets/sequence_widget.dart';
 
 class LaserTimingWidget extends StatefulWidget {
   final BluetoothDevice? device;
@@ -71,6 +72,15 @@ class _LaserTimingWidgetState extends State<LaserTimingWidget> {
 
   void _action() {}
 
+  List<bool> _format() {
+    return utf8
+        .decode(laserTiming)
+        .toString()
+        .split('')
+        .map((character) => (character == "1") ? true : false)
+        .toList();
+  }
+
   Widget _title() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -86,13 +96,8 @@ class _LaserTimingWidgetState extends State<LaserTimingWidget> {
   }
 
   Widget _status() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(utf8.decode(laserTiming).toString(), style: TextStyles.smallBody)
-      ],
-    );
+    List<bool> sequence = _format();
+    return SequenceWidget(color: AppColors.red, sequence: sequence);
   }
 
   @override
