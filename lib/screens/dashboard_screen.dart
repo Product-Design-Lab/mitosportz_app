@@ -7,6 +7,7 @@ import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
 import 'package:mitosportz/widgets/duration_widget.dart';
+import 'package:mitosportz/widgets/laser_timing_widget.dart';
 import 'package:mitosportz/widgets/power_widget.dart';
 import 'package:mitosportz/widgets/proportion_widget.dart';
 
@@ -112,6 +113,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ProportionWidget(
                   device: widget.devices[0],
                 ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LaserTimingWidget(device: widget.devices[0]),
+                const SizedBox(width: 16),
+                Expanded(child: Container())
               ],
             ),
           ),
