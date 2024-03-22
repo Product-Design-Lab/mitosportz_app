@@ -21,12 +21,26 @@ class SequenceWidget extends StatelessWidget {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _bars() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: sequence.map((isActive) => _bar(isActive)).toList(),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder(
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 500),
+      builder: (context, double opacity, child) {
+        return AnimatedOpacity(
+            opacity: opacity,
+            curve: Curves.easeOut,
+            duration: const Duration(milliseconds: 500),
+            child: _bars());
+      },
     );
   }
 }
