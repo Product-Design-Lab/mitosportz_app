@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
-import 'package:mitosportz/constants/button_styles.dart';
 
+import 'package:mitosportz/constants/button_styles.dart';
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 

@@ -11,19 +11,19 @@ import 'package:mitosportz/model/device.dart';
 
 import 'package:mitosportz/widgets/progress_widget.dart';
 
-class PowerWidget extends StatefulWidget {
+class ProportionWidget extends StatefulWidget {
   final BluetoothDevice? device;
 
-  const PowerWidget({Key? key, this.device}) : super(key: key);
+  const ProportionWidget({Key? key, this.device}) : super(key: key);
 
   @override
-  State<PowerWidget> createState() => _PowerWidgetState();
+  State<ProportionWidget> createState() => _ProportionWidgetState();
 }
 
-class _PowerWidgetState extends State<PowerWidget> {
-  StreamSubscription<List<int>>? _powerSubscription;
+class _ProportionWidgetState extends State<ProportionWidget> {
+  StreamSubscription<List<int>>? _proportionSubscription;
 
-  int power = 0;
+  int proportion = 0;
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _PowerWidgetState extends State<PowerWidget> {
 
   @override
   void dispose() {
-    _powerSubscription?.cancel();
+    _proportionSubscription?.cancel();
     super.dispose();
   }
 
@@ -59,9 +59,9 @@ class _PowerWidgetState extends State<PowerWidget> {
       s.characteristics.forEach((c) async {
         if (c.uuid.toString().toUpperCase() == Characteristics.laserPower) {
           await c.read();
-          _powerSubscription = c.onValueReceived.listen((value) async {
+          _proportionSubscription = c.onValueReceived.listen((value) async {
             setState(() {
-              power = value[0];
+              proportion = value[0];
             });
           });
           await c.setNotifyValue(true);
@@ -77,8 +77,8 @@ class _PowerWidgetState extends State<PowerWidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Laser Power",
-            style: TextStyles.body.copyWith(color: AppColors.orange)),
+        Text("Active Lasers",
+            style: TextStyles.body.copyWith(color: AppColors.yellow)),
         Text("Edit",
             style:
                 TextStyles.smallBody.copyWith(color: AppColors.labelSecondary))
@@ -87,8 +87,8 @@ class _PowerWidgetState extends State<PowerWidget> {
   }
 
   Widget _status() {
-    String label = _hasDevice() ? "$power%" : "Not Connected";
-    double level = _hasDevice() ? (power / 100) : 0;
+    String label = _hasDevice() ? "$proportion%" : "Not Connected";
+    double level = _hasDevice() ? (proportion / 100) : 0;
     Color color =
         _hasDevice() ? AppColors.labelSecondary : AppColors.labelTertiary;
 
@@ -101,7 +101,7 @@ class _PowerWidgetState extends State<PowerWidget> {
           child:
               Text(label, style: TextStyles.smallBody.copyWith(color: color)),
         ),
-        ProgressWidget(color: AppColors.orange, progress: level)
+        ProgressWidget(color: AppColors.yellow, progress: level)
       ],
     );
   }

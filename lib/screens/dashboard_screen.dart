@@ -8,6 +8,7 @@ import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
 import 'package:mitosportz/widgets/duration_widget.dart';
 import 'package:mitosportz/widgets/power_widget.dart';
+import 'package:mitosportz/widgets/proportion_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<BluetoothDevice?> devices;
@@ -108,7 +109,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   device: widget.devices[0],
                 ),
                 const SizedBox(width: 16),
-                Expanded(child: Container())
+                ProportionWidget(
+                  device: widget.devices[0],
+                ),
               ],
             ),
           ),
