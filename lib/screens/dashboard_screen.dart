@@ -69,7 +69,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           padding: const EdgeInsets.only(left: 16, right: 16),
           indicatorSize: TabBarIndicatorSize.tab,
           indicator: const BoxDecoration(
-              color: AppColors.backgroundElevated,
+              color: AppColors.tabIndicator,
               borderRadius: BorderRadius.all(Radius.circular(32))),
           tabs: [_tab("Metrics"), _tab("Controls")]),
     );
@@ -77,7 +77,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _metricsTab() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
+      padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
       child: Column(
         children: [
           Row(
@@ -95,7 +95,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   Widget _controlsTab() {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16),
+      padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
       child: Column(
         children: [
           Row(

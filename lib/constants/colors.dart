@@ -7,6 +7,7 @@ class AppColors {
 
   static const Color background = Color.fromRGBO(245, 245, 245, 1);
   static const Color backgroundElevated = Colors.white;
+  static const Color tabIndicator = Color.fromRGBO(213, 213, 213, 0.5);
 
   static const Color buttonBackgroundPrimary = Color.fromRGBO(18, 18, 18, 1);
   static const Color buttonLabelPrimary = Colors.white;

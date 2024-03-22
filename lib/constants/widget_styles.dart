@@ -25,7 +25,13 @@ class WidgetStyles {
           selectionColor: AppColors.background,
           selectionHandleColor: AppColors.buttonLabelPrimary));
 
-  static BoxDecoration elevatedCard = const BoxDecoration(
+  static BoxDecoration elevatedCard = BoxDecoration(
       color: AppColors.backgroundElevated,
-      borderRadius: BorderRadius.all(Radius.circular(radiusLarge)));
+      boxShadow: [WidgetStyles.elevated],
+      borderRadius: const BorderRadius.all(Radius.circular(radiusLarge)));
+
+  static BoxShadow elevated = BoxShadow(
+      color: Colors.black.withOpacity(0.075),
+      blurRadius: 2,
+      offset: const Offset(0, 2));
 }
