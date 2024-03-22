@@ -7,6 +7,7 @@ import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
 import 'package:mitosportz/widgets/duration_widget.dart';
+import 'package:mitosportz/widgets/power_widget.dart';
 
 class DashboardScreen extends StatefulWidget {
   final List<BluetoothDevice?> devices;
@@ -98,13 +99,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              DurationWidget(device: widget.devices[0]),
-              const SizedBox(width: 16),
-              Expanded(child: Container())
-            ],
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PowerWidget(
+                  device: widget.devices[0],
+                ),
+                const SizedBox(width: 16),
+                Expanded(child: Container())
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DurationWidget(device: widget.devices[0]),
+                const SizedBox(width: 16),
+                Expanded(child: Container())
+              ],
+            ),
           )
         ],
       ),

@@ -9,19 +9,21 @@ import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
 
-class DurationWidget extends StatefulWidget {
+import 'package:mitosportz/widgets/progress_widget.dart';
+
+class PowerWidget extends StatefulWidget {
   final BluetoothDevice? device;
 
-  const DurationWidget({Key? key, this.device}) : super(key: key);
+  const PowerWidget({Key? key, this.device}) : super(key: key);
 
   @override
-  State<DurationWidget> createState() => _DurationWidgetState();
+  State<PowerWidget> createState() => _PowerWidgetState();
 }
 
-class _DurationWidgetState extends State<DurationWidget> {
-  StreamSubscription<List<int>>? _durationSubscription;
+class _PowerWidgetState extends State<PowerWidget> {
+  StreamSubscription<List<int>>? _powerSubscription;
 
-  int duration = 0;
+  int power = 0;
 
   @override
   void initState() {
@@ -31,7 +33,7 @@ class _DurationWidgetState extends State<DurationWidget> {
 
   @override
   void dispose() {
-    _durationSubscription?.cancel();
+    _powerSubscription?.cancel();
     super.dispose();
   }
 
@@ -55,12 +57,11 @@ class _DurationWidgetState extends State<DurationWidget> {
 
     services?.forEach((s) async {
       s.characteristics.forEach((c) async {
-        if (c.uuid.toString().toUpperCase() ==
-            Characteristics.sessionDuration) {
+        if (c.uuid.toString().toUpperCase() == Characteristics.laserPower) {
           await c.read();
-          _durationSubscription = c.onValueReceived.listen((value) async {
+          _powerSubscription = c.onValueReceived.listen((value) async {
             setState(() {
-              duration = value[0];
+              power = value[0];
             });
           });
           await c.setNotifyValue(true);
@@ -76,8 +77,8 @@ class _DurationWidgetState extends State<DurationWidget> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Duration",
-            style: TextStyles.body.copyWith(color: AppColors.blue)),
+        Text("Laser Power",
+            style: TextStyles.body.copyWith(color: AppColors.orange)),
         Text("Edit",
             style:
                 TextStyles.smallBody.copyWith(color: AppColors.labelSecondary))
@@ -86,17 +87,21 @@ class _DurationWidgetState extends State<DurationWidget> {
   }
 
   Widget _status() {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
+    String label = _hasDevice() ? "$power%" : "Not Connected";
+    double level = _hasDevice() ? (power / 100) : 0;
+    Color color =
+        _hasDevice() ? AppColors.labelSecondary : AppColors.labelTertiary;
+
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("$duration",
-            style: TextStyles.title.copyWith(color: AppColors.blue)),
         Padding(
-          padding: const EdgeInsets.only(left: 4, bottom: 2),
-          child: Text("secs",
-              style: TextStyles.smallBody
-                  .copyWith(color: AppColors.labelSecondary)),
-        )
+          padding: const EdgeInsets.only(bottom: 8),
+          child:
+              Text(label, style: TextStyles.smallBody.copyWith(color: color)),
+        ),
+        ProgressWidget(color: AppColors.orange, progress: level)
       ],
     );
   }
