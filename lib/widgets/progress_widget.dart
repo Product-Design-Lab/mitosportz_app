@@ -15,7 +15,9 @@ class ProgressWidget extends StatelessWidget {
       height: 12,
       decoration: BoxDecoration(
           color: AppColors.background, borderRadius: BorderRadius.circular(12)),
-      child: FractionallySizedBox(
+      child: AnimatedFractionallySizedBox(
+        duration: const Duration(milliseconds: 500),
+        curve: Curves.decelerate,
         alignment: Alignment.centerLeft,
         widthFactor: progress,
         child: Container(
