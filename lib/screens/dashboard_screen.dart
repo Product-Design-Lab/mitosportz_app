@@ -8,6 +8,7 @@ import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/device_widget.dart';
 import 'package:mitosportz/widgets/duration_widget.dart';
 import 'package:mitosportz/widgets/laser_timing_widget.dart';
+import 'package:mitosportz/widgets/led_timing_widget.dart';
 import 'package:mitosportz/widgets/power_widget.dart';
 import 'package:mitosportz/widgets/proportion_widget.dart';
 
@@ -123,7 +124,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
               children: [
                 LaserTimingWidget(device: widget.devices[0]),
                 const SizedBox(width: 16),
-                Expanded(child: Container())
+                LEDTimingWidget(device: widget.devices[0]),
               ],
             ),
           ),

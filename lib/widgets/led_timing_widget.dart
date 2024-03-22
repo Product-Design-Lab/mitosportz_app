@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
@@ -8,22 +9,21 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+import 'package:mitosportz/widgets/sequence_widget.dart';
 
-import 'package:mitosportz/widgets/progress_widget.dart';
-
-class ProportionWidget extends StatefulWidget {
+class LEDTimingWidget extends StatefulWidget {
   final BluetoothDevice? device;
 
-  const ProportionWidget({Key? key, this.device}) : super(key: key);
+  const LEDTimingWidget({Key? key, this.device}) : super(key: key);
 
   @override
-  State<ProportionWidget> createState() => _ProportionWidgetState();
+  State<LEDTimingWidget> createState() => _LEDTimingWidgetState();
 }
 
-class _ProportionWidgetState extends State<ProportionWidget> {
-  StreamSubscription<List<int>>? _proportionSubscription;
+class _LEDTimingWidgetState extends State<LEDTimingWidget> {
+  StreamSubscription<List<int>>? _ledTimingSubscription;
 
-  int proportion = 0;
+  List<int> ledTiming = [];
 
   @override
   void initState() {
@@ -33,7 +33,7 @@ class _ProportionWidgetState extends State<ProportionWidget> {
 
   @override
   void dispose() {
-    _proportionSubscription?.cancel();
+    _ledTimingSubscription?.cancel();
     super.dispose();
   }
 
@@ -57,11 +57,11 @@ class _ProportionWidgetState extends State<ProportionWidget> {
 
     services?.forEach((s) async {
       s.characteristics.forEach((c) async {
-        if (c.uuid.toString().toUpperCase() == Characteristics.activeLasers) {
+        if (c.uuid.toString().toUpperCase() == Characteristics.ledTiming) {
           await c.read();
-          _proportionSubscription = c.onValueReceived.listen((value) async {
+          _ledTimingSubscription = c.onValueReceived.listen((value) async {
             setState(() {
-              proportion = value[0];
+              ledTiming = value;
             });
           });
           await c.setNotifyValue(true);
@@ -72,13 +72,22 @@ class _ProportionWidgetState extends State<ProportionWidget> {
 
   void _action() {}
 
+  List<bool> _format() {
+    return utf8
+        .decode(ledTiming)
+        .toString()
+        .split('')
+        .map((character) => (character == "1") ? true : false)
+        .toList();
+  }
+
   Widget _title() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Text("Active Lasers",
-            style: TextStyles.body.copyWith(color: AppColors.yellow)),
+        Text("LED Timing",
+            style: TextStyles.body.copyWith(color: AppColors.green)),
         Text("Edit",
             style:
                 TextStyles.smallBody.copyWith(color: AppColors.labelSecondary))
@@ -87,23 +96,8 @@ class _ProportionWidgetState extends State<ProportionWidget> {
   }
 
   Widget _status() {
-    String label = _hasDevice() ? "$proportion%" : "Not Connected";
-    double level = _hasDevice() ? (proportion / 100) : 0;
-    Color color =
-        _hasDevice() ? AppColors.labelSecondary : AppColors.labelTertiary;
-
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child:
-              Text(label, style: TextStyles.smallBody.copyWith(color: color)),
-        ),
-        ProgressWidget(color: AppColors.yellow, progress: level)
-      ],
-    );
+    List<bool> sequence = _format();
+    return SequenceWidget(color: AppColors.green, sequence: sequence);
   }
 
   @override
@@ -113,7 +107,7 @@ class _ProportionWidgetState extends State<ProportionWidget> {
         style: ButtonStyles.buttonCard,
         onPressed: _action,
         child: SizedBox(
-          height: 168,
+          height: 256,
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
