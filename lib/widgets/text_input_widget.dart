@@ -11,6 +11,8 @@ class TextInputWidget extends StatefulWidget {
   final String hintText;
   final ValueSetter<String> action;
   final String actionText;
+  final Function? altAction;
+  final String? altActionText;
   final String? errorText;
   final TextInputType? keyboardType;
 
@@ -21,7 +23,9 @@ class TextInputWidget extends StatefulWidget {
     required this.hintText,
     required this.action,
     required this.actionText,
-    required this.errorText,
+    this.errorText,
+    this.altAction,
+    this.altActionText,
     this.keyboardType,
   }) : super(key: key);
 
@@ -83,14 +87,25 @@ class _TextInputWidgetState extends State<TextInputWidget> {
   }
 
   Widget submitButton() {
-    return Padding(
-      padding: const EdgeInsets.only(top: 16),
+    return Expanded(
       child: ElevatedButton(
         onPressed: () {
           widget.action(_textEditingController.text);
         },
         style: ButtonStyles.buttonPrimary,
         child: Text(widget.actionText),
+      ),
+    );
+  }
+
+  Widget altButton() {
+    return Expanded(
+      child: Padding(
+        padding: const EdgeInsets.only(left: 16),
+        child: ElevatedButton(
+            onPressed: () => {},
+            style: ButtonStyles.buttonSecondary,
+            child: Text("${widget.altActionText}")),
       ),
     );
   }
@@ -102,7 +117,16 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [inputCard(), submitButton()],
+        children: [
+          inputCard(),
+          Padding(
+            padding: const EdgeInsets.only(top: 16),
+            child: Row(children: [
+              submitButton(),
+              if (widget.altAction != null) altButton()
+            ]),
+          )
+        ],
       ),
     );
   }

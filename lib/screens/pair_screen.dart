@@ -84,6 +84,8 @@ class _PairingScreenState extends State<PairingScreen> {
     });
   }
 
+  void _demo() {}
+
   Widget _emptyState() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -106,6 +108,8 @@ class _PairingScreenState extends State<PairingScreen> {
       actionText: "Connect",
       errorText: error,
       keyboardType: TextInputType.number,
+      altAction: _demo,
+      altActionText: "Demo Mode",
     );
   }
 

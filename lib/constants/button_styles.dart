@@ -20,8 +20,8 @@ class ButtonStyles {
       textStyle: const MaterialStatePropertyAll<TextStyle>(TextStyles.body),
       foregroundColor:
           const MaterialStatePropertyAll<Color>(AppColors.buttonLabelSecondary),
-      backgroundColor:
-          const MaterialStatePropertyAll<Color>(AppColors.buttonLabelSecondary),
+      backgroundColor: const MaterialStatePropertyAll<Color>(
+          AppColors.buttonBackgroundSecondary),
       fixedSize: const MaterialStatePropertyAll<Size?>(Size.fromHeight(56)),
       shadowColor: const MaterialStatePropertyAll<Color>(Colors.transparent),
       padding: const MaterialStatePropertyAll<EdgeInsets>(EdgeInsets.all(17.0)),

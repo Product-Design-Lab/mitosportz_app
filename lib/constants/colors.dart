@@ -13,8 +13,8 @@ class AppColors {
   static const Color buttonLabelPrimary = Colors.white;
 
   static const Color buttonBackgroundSecondary =
-      Color.fromRGBO(245, 245, 245, 1);
-  static const Color buttonLabelSecondary = Color.fromRGBO(91, 91, 91, 1);
+      Color.fromRGBO(213, 213, 213, 0.5);
+  static const Color buttonLabelSecondary = Color.fromRGBO(51, 51, 51, 1);
 
   static const Color red = Color.fromRGBO(251, 32, 108, 1);
   static const Color orange = Color.fromRGBO(255, 112, 37, 1);

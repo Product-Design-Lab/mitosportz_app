@@ -102,32 +102,32 @@ class _DashboardScreenState extends State<DashboardScreen> {
       padding: const EdgeInsets.only(top: 8, left: 16, right: 16),
       child: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                PowerWidget(
-                  device: widget.devices[0],
-                ),
-                const SizedBox(width: 16),
-                ProportionWidget(
-                  device: widget.devices[0],
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 16),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                LaserTimingWidget(device: widget.devices[0]),
-                const SizedBox(width: 16),
-                LEDTimingWidget(device: widget.devices[0]),
-              ],
-            ),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 16),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       PowerWidget(
+          //         device: widget.devices[0],
+          //       ),
+          //       const SizedBox(width: 16),
+          //       ProportionWidget(
+          //         device: widget.devices[0],
+          //       ),
+          //     ],
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.only(bottom: 16),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: [
+          //       LaserTimingWidget(device: widget.devices[0]),
+          //       const SizedBox(width: 16),
+          //       LEDTimingWidget(device: widget.devices[0]),
+          //     ],
+          //   ),
+          // ),
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Row(
