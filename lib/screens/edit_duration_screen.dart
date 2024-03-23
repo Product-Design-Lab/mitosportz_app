@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -18,6 +16,7 @@ class EditDurationScreen extends StatefulWidget {
 }
 
 class _EditDurationScreenState extends State<EditDurationScreen> {
+  String? error;
   int duration = 0;
 
   @override
@@ -70,6 +69,33 @@ class _EditDurationScreenState extends State<EditDurationScreen> {
     });
   }
 
+  void _action(String value) {
+    setState(() {
+      error = _validator(value);
+    });
+    if (error == null) {
+      FocusScope.of(context).unfocus();
+      _submit(value);
+    }
+  }
+
+  bool _isNumeric(String value) {
+    return num.tryParse(value) != null;
+  }
+
+  String? _validator(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter a number";
+    }
+    if (num.tryParse(value) == 0) {
+      return "Use at least 1 second";
+    }
+    if (!_isNumeric(value)) {
+      return "Please enter a number";
+    }
+    return null;
+  }
+
   void _exit() {
     Navigator.pop(context);
   }
@@ -79,8 +105,9 @@ class _EditDurationScreenState extends State<EditDurationScreen> {
       title: "Edit Duration",
       subtitle: "Seconds",
       hintText: "$duration",
-      action: _submit,
+      action: _action,
       actionText: "Set Duration",
+      errorText: error,
       keyboardType: TextInputType.number,
       altAction: _exit,
       altActionText: "Cancel",
