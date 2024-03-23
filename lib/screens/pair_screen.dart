@@ -3,6 +3,7 @@ import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
+import 'package:mitosportz/screens/demo_screen.dart';
 
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/text_input_widget.dart';
@@ -69,6 +70,14 @@ class _PairingScreenState extends State<PairingScreen> {
                 )));
   }
 
+  void _demo() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DemoScreen(),
+        ));
+  }
+
   void _scan() async {
     await FlutterBluePlus.startScan();
     FlutterBluePlus.scanResults.listen((results) async {
@@ -106,6 +115,8 @@ class _PairingScreenState extends State<PairingScreen> {
       actionText: "Connect",
       errorText: error,
       keyboardType: TextInputType.number,
+      altAction: _demo,
+      altActionText: "Demo Mode",
     );
   }
 
