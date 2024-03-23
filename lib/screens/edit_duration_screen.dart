@@ -54,8 +54,20 @@ class _EditDurationScreenState extends State<EditDurationScreen> {
     });
   }
 
-  void _action(String value) {
-    _exit();
+  void _submit(String value) async {
+    int submittedValue = int.parse(value);
+
+    List<BluetoothService>? services = await widget.device?.discoverServices();
+
+    services?.forEach((s) async {
+      s.characteristics.forEach((c) async {
+        if (c.uuid.toString().toUpperCase() ==
+            Characteristics.sessionDuration) {
+          await c.write([submittedValue]);
+          _exit();
+        }
+      });
+    });
   }
 
   void _exit() {
@@ -67,7 +79,7 @@ class _EditDurationScreenState extends State<EditDurationScreen> {
       title: "Edit Duration",
       subtitle: "Seconds",
       hintText: "$duration",
-      action: _action,
+      action: _submit,
       actionText: "Set Duration",
       keyboardType: TextInputType.number,
       altAction: _exit,
