@@ -11,7 +11,7 @@ class TextInputWidget extends StatefulWidget {
   final String hintText;
   final ValueSetter<String> action;
   final String actionText;
-  final Function? altAction;
+  final Function()? altAction;
   final String? altActionText;
   final String? errorText;
   final TextInputType? keyboardType;
@@ -103,7 +103,7 @@ class _TextInputWidgetState extends State<TextInputWidget> {
       child: Padding(
         padding: const EdgeInsets.only(left: 16),
         child: ElevatedButton(
-            onPressed: () => {},
+            onPressed: widget.altAction,
             style: ButtonStyles.buttonSecondary,
             child: Text("${widget.altActionText}")),
       ),
