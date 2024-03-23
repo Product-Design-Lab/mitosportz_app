@@ -71,8 +71,10 @@ class _DurationWidgetState extends State<DurationWidget> {
   }
 
   void _action() {
-    Navigator.push(context,
-        MaterialPageRoute(builder: (context) => const EditDurationScreen()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => EditDurationScreen(device: widget.device)));
   }
 
   Widget _title() {
