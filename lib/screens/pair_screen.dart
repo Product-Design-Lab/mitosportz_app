@@ -115,8 +115,6 @@ class _PairingScreenState extends State<PairingScreen> {
       actionText: "Connect",
       errorText: error,
       keyboardType: TextInputType.number,
-      altAction: _demo,
-      altActionText: "Demo Mode",
     );
   }
 
