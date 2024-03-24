@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -21,20 +19,12 @@ class ProportionWidget extends StatefulWidget {
 }
 
 class _ProportionWidgetState extends State<ProportionWidget> {
-  StreamSubscription<List<int>>? _proportionSubscription;
-
   int proportion = 0;
 
   @override
   void initState() {
     super.initState();
     _connect();
-  }
-
-  @override
-  void dispose() {
-    _proportionSubscription?.cancel();
-    super.dispose();
   }
 
   // TODO: Implement Empty State
@@ -58,13 +48,10 @@ class _ProportionWidgetState extends State<ProportionWidget> {
     services?.forEach((s) async {
       s.characteristics.forEach((c) async {
         if (c.uuid.toString().toUpperCase() == Characteristics.activeLasers) {
-          await c.read();
-          _proportionSubscription = c.onValueReceived.listen((value) async {
-            setState(() {
-              proportion = value[0];
-            });
+          List<int> value = await c.read();
+          setState(() {
+            proportion = value[0];
           });
-          await c.setNotifyValue(true);
         }
       });
     });

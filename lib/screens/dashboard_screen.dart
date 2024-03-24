@@ -117,17 +117,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
-          // Padding(
-          //   padding: const EdgeInsets.only(bottom: 16),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: [
-          //       LaserTimingWidget(device: widget.devices[0]),
-          //       const SizedBox(width: 16),
-          //       LEDTimingWidget(device: widget.devices[0]),
-          //     ],
-          //   ),
-          // ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                LaserTimingWidget(device: widget.devices[0]),
+                const SizedBox(width: 16),
+                LEDTimingWidget(device: widget.devices[0]),
+              ],
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.only(bottom: 16),
             child: Row(

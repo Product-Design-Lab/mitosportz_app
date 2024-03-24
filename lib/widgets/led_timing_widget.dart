@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -21,20 +20,12 @@ class LEDTimingWidget extends StatefulWidget {
 }
 
 class _LEDTimingWidgetState extends State<LEDTimingWidget> {
-  StreamSubscription<List<int>>? _ledTimingSubscription;
-
   List<int> ledTiming = [];
 
   @override
   void initState() {
     super.initState();
     _connect();
-  }
-
-  @override
-  void dispose() {
-    _ledTimingSubscription?.cancel();
-    super.dispose();
   }
 
   // TODO: Implement Empty State
@@ -58,13 +49,10 @@ class _LEDTimingWidgetState extends State<LEDTimingWidget> {
     services?.forEach((s) async {
       s.characteristics.forEach((c) async {
         if (c.uuid.toString().toUpperCase() == Characteristics.ledTiming) {
-          await c.read();
-          _ledTimingSubscription = c.onValueReceived.listen((value) async {
-            setState(() {
-              ledTiming = value;
-            });
+          List<int> value = await c.read();
+          setState(() {
+            ledTiming = value;
           });
-          await c.setNotifyValue(true);
         }
       });
     });

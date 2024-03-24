@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -21,20 +19,12 @@ class PowerWidget extends StatefulWidget {
 }
 
 class _PowerWidgetState extends State<PowerWidget> {
-  StreamSubscription<List<int>>? _powerSubscription;
-
   int power = 0;
 
   @override
   void initState() {
     super.initState();
     _connect();
-  }
-
-  @override
-  void dispose() {
-    _powerSubscription?.cancel();
-    super.dispose();
   }
 
   // TODO: Implement Empty State
@@ -58,13 +48,10 @@ class _PowerWidgetState extends State<PowerWidget> {
     services?.forEach((s) async {
       s.characteristics.forEach((c) async {
         if (c.uuid.toString().toUpperCase() == Characteristics.laserPower) {
-          await c.read();
-          _powerSubscription = c.onValueReceived.listen((value) async {
-            setState(() {
-              power = value[0];
-            });
+          List<int> value = await c.read();
+          setState(() {
+            power = value[0];
           });
-          await c.setNotifyValue(true);
         }
       });
     });

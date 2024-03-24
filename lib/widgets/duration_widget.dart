@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
@@ -20,20 +18,12 @@ class DurationWidget extends StatefulWidget {
 }
 
 class _DurationWidgetState extends State<DurationWidget> {
-  StreamSubscription<List<int>>? _durationSubscription;
-
   int duration = 0;
 
   @override
   void initState() {
     super.initState();
     _connect();
-  }
-
-  @override
-  void dispose() {
-    _durationSubscription?.cancel();
-    super.dispose();
   }
 
   // TODO: Implement Empty State
@@ -58,13 +48,10 @@ class _DurationWidgetState extends State<DurationWidget> {
       s.characteristics.forEach((c) async {
         if (c.uuid.toString().toUpperCase() ==
             Characteristics.sessionDuration) {
-          await c.read();
-          _durationSubscription = c.onValueReceived.listen((value) async {
-            setState(() {
-              duration = value[0];
-            });
+          List<int> value = await c.read();
+          setState(() {
+            duration = value[0];
           });
-          await c.setNotifyValue(true);
         }
       });
     });
@@ -72,9 +59,11 @@ class _DurationWidgetState extends State<DurationWidget> {
 
   void _action() {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => EditDurationScreen(device: widget.device)));
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    EditDurationScreen(device: widget.device)))
+        .then((_) => _connect());
   }
 
   Widget _title() {
