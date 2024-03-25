@@ -6,6 +6,7 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+import 'package:mitosportz/screens/edit_proportion_screen.dart';
 
 import 'package:mitosportz/widgets/progress_widget.dart';
 
@@ -57,7 +58,14 @@ class _ProportionWidgetState extends State<ProportionWidget> {
     });
   }
 
-  void _action() {}
+  void _action() {
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    EditProportionScreen(device: widget.device)))
+        .then((_) => _connect());
+  }
 
   Widget _title() {
     return Column(
