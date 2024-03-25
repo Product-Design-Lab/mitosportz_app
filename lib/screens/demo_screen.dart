@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:mitosportz/constants/colors.dart';
 
@@ -8,7 +10,8 @@ class DemoScreen extends StatelessWidget {
   const DemoScreen({super.key});
 
   void action(List<bool> value) {
-    print(value);
+    print(value.map((_val) => (_val ? "1" : "0")).join());
+    print(utf8.encode(value.map((_val) => (_val ? "1" : "0")).join()));
   }
 
   @override

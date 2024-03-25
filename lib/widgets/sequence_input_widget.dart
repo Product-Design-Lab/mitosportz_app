@@ -38,18 +38,19 @@ class _SequenceInputWidgetState extends State<SequenceInputWidget> {
   @override
   void initState() {
     super.initState();
-    setState(() {
-      _value = widget.initialValue.map((value) => value).toList();
-    });
   }
 
   Widget sequencer() {
     List<Widget> children = [];
 
-    for (var i = 0; i < _value.length; i++) {
+    setState(() {
+      _value = widget.initialValue.map((e) => e).toList();
+    });
+
+    for (var i = 0; i < widget.initialValue.length; i++) {
       children.add(_ToggleButton(
           themeColor: widget.themeColor,
-          initialValue: _value[i],
+          initialValue: widget.initialValue[i],
           onPressed: (value) {
             setState(() {
               _value[i] = value;

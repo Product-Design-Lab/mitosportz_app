@@ -8,6 +8,7 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+import 'package:mitosportz/screens/edit_laser_timing_screen.dart';
 import 'package:mitosportz/widgets/sequence_widget.dart';
 
 class LaserTimingWidget extends StatefulWidget {
@@ -58,7 +59,14 @@ class _LaserTimingWidgetState extends State<LaserTimingWidget> {
     });
   }
 
-  void _action() {}
+  void _action() {
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    EditLaserTimingScreen(device: widget.device)))
+        .then((_) => _connect());
+  }
 
   List<bool> _format() {
     return utf8
