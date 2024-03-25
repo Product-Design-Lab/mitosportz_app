@@ -48,12 +48,12 @@ class _SequenceInputWidgetState extends State<SequenceInputWidget> {
 
     for (var i = 0; i < _value.length; i++) {
       children.add(_ToggleButton(
+          themeColor: widget.themeColor,
           initialValue: _value[i],
           onPressed: (value) {
             setState(() {
               _value[i] = value;
             });
-            print(_value);
           }));
     }
     return Column(
@@ -133,9 +133,13 @@ class _SequenceInputWidgetState extends State<SequenceInputWidget> {
 class _ToggleButton extends StatefulWidget {
   final bool initialValue;
   final ValueSetter<bool> onPressed;
+  final Color? themeColor;
 
   const _ToggleButton(
-      {Key? key, required this.initialValue, required this.onPressed})
+      {Key? key,
+      required this.initialValue,
+      required this.onPressed,
+      this.themeColor})
       : super(key: key);
 
   @override
@@ -169,6 +173,7 @@ class _ToggleButtonState extends State<_ToggleButton> {
               const MaterialStatePropertyAll<Size?>(Size.fromHeight(32)));
     } else {
       return ButtonStyles.buttonPrimary.copyWith(
+          backgroundColor: MaterialStatePropertyAll<Color?>(widget.themeColor),
           fixedSize:
               const MaterialStatePropertyAll<Size?>(Size.fromHeight(32)));
     }

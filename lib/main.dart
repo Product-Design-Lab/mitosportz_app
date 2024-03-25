@@ -32,7 +32,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "MitoSportz",
-      initialRoute: "/demo",
+      initialRoute: "/pair",
       routes: {
         "/pair": (context) => const PairingScreen(),
         "/demo": (context) => const DemoScreen(),
