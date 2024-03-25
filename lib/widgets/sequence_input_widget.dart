@@ -57,8 +57,19 @@ class _SequenceInputWidgetState extends State<SequenceInputWidget> {
             });
           }));
     }
-    return Column(
-      children: children,
+    return TweenAnimationBuilder(
+      tween: Tween<double>(begin: 0, end: 1),
+      duration: const Duration(milliseconds: 300),
+      curve: Curves.decelerate,
+      builder: (context, double opacity, child) => AnimatedOpacity(
+        opacity: opacity,
+        duration: const Duration(milliseconds: 300),
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.decelerate,
+          child: Column(children: children),
+        ),
+      ),
     );
   }
 

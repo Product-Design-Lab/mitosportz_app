@@ -8,8 +8,9 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
-import 'package:mitosportz/screens/edit_laser_timing_screen.dart';
 import 'package:mitosportz/widgets/sequence_widget.dart';
+
+import 'package:mitosportz/screens/edit_laser_timing_screen.dart';
 
 class LaserTimingWidget extends StatefulWidget {
   final BluetoothDevice? device;
