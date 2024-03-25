@@ -87,9 +87,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              DeviceWidget(name: "Left Arm", device: widget.devices[0]),
+              DeviceWidget(name: "Left Leg", device: widget.devices[0]),
               const SizedBox(width: 16),
-              const DeviceWidget(name: "Right Arm")
+              const DeviceWidget(name: "Right Leg")
             ],
           )
         ],

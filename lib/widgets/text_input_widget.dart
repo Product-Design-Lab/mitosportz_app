@@ -15,6 +15,7 @@ class TextInputWidget extends StatefulWidget {
   final String? altActionText;
   final String? errorText;
   final TextInputType? keyboardType;
+  final Color? themeColor;
 
   const TextInputWidget({
     Key? key,
@@ -27,6 +28,7 @@ class TextInputWidget extends StatefulWidget {
     this.altAction,
     this.altActionText,
     this.keyboardType,
+    this.themeColor,
   }) : super(key: key);
 
   @override
@@ -76,7 +78,11 @@ class _TextInputWidgetState extends State<TextInputWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(widget.title, style: TextStyles.title),
+            Text(widget.title,
+                style: TextStyles.title.copyWith(
+                    color: (widget.themeColor != null)
+                        ? widget.themeColor
+                        : AppColors.labelPrimary)),
             Padding(
                 padding: const EdgeInsets.only(top: 48, bottom: 48),
                 child: textInputField()),

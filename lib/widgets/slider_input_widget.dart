@@ -14,6 +14,7 @@ class SliderInputWidget extends StatefulWidget {
   final String actionText;
   final Function()? altAction;
   final String? altActionText;
+  final Color? themeColor;
 
   const SliderInputWidget({
     Key? key,
@@ -24,6 +25,7 @@ class SliderInputWidget extends StatefulWidget {
     required this.actionText,
     this.altAction,
     this.altActionText,
+    this.themeColor,
   }) : super(key: key);
 
   @override
@@ -45,6 +47,7 @@ class _SliderInputWidgetState extends State<SliderInputWidget> {
       max: 100,
       value: _updated ? _value : widget.initialValue,
       inactiveColor: AppColors.background,
+      activeColor: widget.themeColor,
       onChanged: (value) {
         setState(() {
           _value = value;
@@ -66,7 +69,11 @@ class _SliderInputWidgetState extends State<SliderInputWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(widget.title, style: TextStyles.title),
+            Text(widget.title,
+                style: TextStyles.title.copyWith(
+                    color: (widget.themeColor != null)
+                        ? widget.themeColor
+                        : AppColors.labelPrimary)),
             Padding(
                 padding: const EdgeInsets.only(
                     top: 48, bottom: 48, right: 16, left: 16),

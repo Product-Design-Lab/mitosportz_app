@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
+import 'package:mitosportz/constants/colors.dart';
+
 import 'package:mitosportz/model/device.dart';
 
 import 'package:mitosportz/widgets/base.dart';
@@ -79,6 +81,7 @@ class _EditProportionScreenState extends State<EditProportionScreen> {
       actionText: "Set Proportion",
       altAction: _exit,
       altActionText: "Cancel",
+      themeColor: AppColors.yellow,
     );
   }
 
