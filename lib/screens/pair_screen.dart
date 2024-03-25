@@ -7,7 +7,6 @@ import 'package:mitosportz/constants/text_styles.dart';
 import 'package:mitosportz/widgets/base.dart';
 import 'package:mitosportz/widgets/text_input_widget.dart';
 
-import 'package:mitosportz/screens/demo_screen.dart';
 import 'package:mitosportz/screens/dashboard_screen.dart';
 
 class PairingScreen extends StatefulWidget {
@@ -66,16 +65,8 @@ class _PairingScreenState extends State<PairingScreen> {
         context,
         MaterialPageRoute(
             builder: (context) => DashboardScreen(
-                  devices: [deviceA],
+                  devices: [deviceA, deviceB],
                 )));
-  }
-
-  void _demo() {
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DemoScreen(),
-        ));
   }
 
   void _scan() async {
@@ -85,7 +76,10 @@ class _PairingScreenState extends State<PairingScreen> {
         if (result.device.platformName == "${devicePrefix}_A_$pairingCode") {
           deviceA = result.device;
         }
-        if (deviceA != null) {
+        if (result.device.platformName == "${devicePrefix}_B_$pairingCode") {
+          deviceB = result.device;
+        }
+        if (deviceA != null && deviceB != null) {
           FlutterBluePlus.stopScan();
           _segue();
         }

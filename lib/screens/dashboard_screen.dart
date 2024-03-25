@@ -89,7 +89,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             children: [
               DeviceWidget(name: "Left Leg", device: widget.devices[0]),
               const SizedBox(width: 16),
-              const DeviceWidget(name: "Right Leg")
+              DeviceWidget(name: "Right Leg", device: widget.devices[1])
             ],
           )
         ],

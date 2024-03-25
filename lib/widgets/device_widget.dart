@@ -48,7 +48,11 @@ class _DeviceWidgetState extends State<DeviceWidget> {
       }
 
       if (state == BluetoothConnectionState.connected) {
-        _update();
+        try {
+          _update();
+        } catch (e) {
+          print(e);
+        }
       }
     });
   }
