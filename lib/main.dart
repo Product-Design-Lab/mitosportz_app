@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:mitosportz/constants/widget_styles.dart';
 
 import 'package:mitosportz/screens/pair_screen.dart';
+import 'package:mitosportz/screens/demo_screen.dart';
 
 void main() {
   if (Platform.isAndroid) {
@@ -31,9 +32,10 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "MitoSportz",
-      initialRoute: "/pair",
+      initialRoute: "/demo",
       routes: {
         "/pair": (context) => const PairingScreen(),
+        "/demo": (context) => const DemoScreen(),
       },
       theme: WidgetStyles.baseTheme,
     );
