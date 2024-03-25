@@ -9,6 +9,7 @@ import 'package:mitosportz/constants/widget_styles.dart';
 class SliderInputWidget extends StatefulWidget {
   final String title;
   final String label;
+  final double initialValue;
   final ValueSetter<double> action;
   final String actionText;
   final Function()? altAction;
@@ -18,6 +19,7 @@ class SliderInputWidget extends StatefulWidget {
     Key? key,
     required this.title,
     required this.label,
+    required this.initialValue,
     required this.action,
     required this.actionText,
     this.altAction,
@@ -30,6 +32,7 @@ class SliderInputWidget extends StatefulWidget {
 
 class _SliderInputWidgetState extends State<SliderInputWidget> {
   double _value = 0;
+  bool _updated = false;
 
   @override
   void initState() {
@@ -40,11 +43,16 @@ class _SliderInputWidgetState extends State<SliderInputWidget> {
     return Slider(
       min: 0,
       max: 100,
-      value: _value,
+      value: _updated ? _value : widget.initialValue,
       inactiveColor: AppColors.background,
       onChanged: (value) {
         setState(() {
           _value = value;
+        });
+      },
+      onChangeStart: (_) {
+        setState(() {
+          _updated = true;
         });
       },
     );
@@ -63,8 +71,10 @@ class _SliderInputWidgetState extends State<SliderInputWidget> {
                 padding: const EdgeInsets.only(
                     top: 48, bottom: 48, right: 16, left: 16),
                 child: slider()),
-            Text("${_value.round()}${widget.label}",
-                style: TextStyles.body, textAlign: TextAlign.center),
+            Text(
+                "${(_updated ? _value : widget.initialValue).round()}${widget.label}",
+                style: TextStyles.body,
+                textAlign: TextAlign.center),
           ]),
     ));
   }

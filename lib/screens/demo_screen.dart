@@ -14,6 +14,10 @@ class DemoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Base(
         child: SliderInputWidget(
-            title: "Title", label: "%", action: action, actionText: "Submit"));
+            title: "Title",
+            label: "%",
+            initialValue: 0,
+            action: action,
+            actionText: "Submit"));
   }
 }

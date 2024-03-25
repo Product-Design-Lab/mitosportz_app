@@ -9,6 +9,8 @@ import 'package:mitosportz/model/device.dart';
 
 import 'package:mitosportz/widgets/progress_widget.dart';
 
+import 'package:mitosportz/screens/edit_power_screen.dart';
+
 class PowerWidget extends StatefulWidget {
   final BluetoothDevice? device;
 
@@ -57,7 +59,13 @@ class _PowerWidgetState extends State<PowerWidget> {
     });
   }
 
-  void _action() {}
+  void _action() {
+    Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => EditPowerScreen(device: widget.device)))
+        .then((_) => _connect());
+  }
 
   Widget _title() {
     return Column(

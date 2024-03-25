@@ -6,6 +6,7 @@ import 'package:mitosportz/constants/colors.dart';
 import 'package:mitosportz/constants/text_styles.dart';
 
 import 'package:mitosportz/model/device.dart';
+
 import 'package:mitosportz/screens/edit_duration_screen.dart';
 
 class DurationWidget extends StatefulWidget {
