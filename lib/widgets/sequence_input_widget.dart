@@ -39,18 +39,26 @@ class _SequenceInputWidgetState extends State<SequenceInputWidget> {
   void initState() {
     super.initState();
     setState(() {
-      _value = widget.initialValue;
+      _value = widget.initialValue.map((value) => value).toList();
     });
   }
 
   Widget sequencer() {
+    List<Widget> children = [];
+
+    for (var i = 0; i < _value.length; i++) {
+      children.add(_ToggleButton(
+          initialValue: _value[i],
+          onPressed: (value) {
+            setState(() {
+              _value[i] = value;
+            });
+            print(_value);
+          }));
+    }
     return Column(
-        children: _value
-            .map((isActive) => Padding(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: _ToggleButton(initialValue: isActive),
-                ))
-            .toList());
+      children: children,
+    );
   }
 
   Widget inputCard() {
@@ -124,8 +132,11 @@ class _SequenceInputWidgetState extends State<SequenceInputWidget> {
 
 class _ToggleButton extends StatefulWidget {
   final bool initialValue;
+  final ValueSetter<bool> onPressed;
 
-  const _ToggleButton({Key? key, required this.initialValue}) : super(key: key);
+  const _ToggleButton(
+      {Key? key, required this.initialValue, required this.onPressed})
+      : super(key: key);
 
   @override
   State<_ToggleButton> createState() => _ToggleButtonState();
@@ -166,7 +177,10 @@ class _ToggleButtonState extends State<_ToggleButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: toggle,
+        onPressed: () {
+          toggle();
+          widget.onPressed(isActive);
+        },
         style: buttonToggle(),
         child: const SizedBox.expand());
   }
