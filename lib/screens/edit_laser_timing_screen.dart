@@ -64,6 +64,10 @@ class _EditLaserTimingScreenState extends State<EditLaserTimingScreen> {
     });
   }
 
+  void _test(List<bool> value) {
+    print(value);
+  }
+
   void _submit(List<bool> value) async {
     List<int> submittedValue = _encode(value);
 
@@ -103,7 +107,7 @@ class _EditLaserTimingScreenState extends State<EditLaserTimingScreen> {
           ? "Each bar is ${(duration / laserTiming.length).round()} seconds"
           : "",
       initialValue: _decode(laserTiming),
-      action: _submit,
+      action: _test,
       actionText: "Set Sequence",
       altAction: _exit,
       altActionText: "Cancel",
