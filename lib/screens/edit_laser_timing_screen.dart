@@ -64,12 +64,8 @@ class _EditLaserTimingScreenState extends State<EditLaserTimingScreen> {
     });
   }
 
-  void _test(List<bool> value) {
-    print(value);
-  }
-
   void _submit(List<bool> value) async {
-    List<int> submittedValue = _encode(value);
+    List<int> submittedValue = _convert(value);
 
     List<BluetoothService>? services = await widget.device?.discoverServices();
 
@@ -85,6 +81,10 @@ class _EditLaserTimingScreenState extends State<EditLaserTimingScreen> {
 
   void _exit() {
     Navigator.pop(context);
+  }
+
+  List<int> _convert(List<bool> list) {
+    return list.map((e) => e ? 1 : 0).toList();
   }
 
   List<int> _encode(List<bool> list) {
@@ -107,7 +107,7 @@ class _EditLaserTimingScreenState extends State<EditLaserTimingScreen> {
           ? "Each bar is ${(duration / laserTiming.length).round()} seconds"
           : "",
       initialValue: _decode(laserTiming),
-      action: _test,
+      action: _submit,
       actionText: "Set Sequence",
       altAction: _exit,
       altActionText: "Cancel",
