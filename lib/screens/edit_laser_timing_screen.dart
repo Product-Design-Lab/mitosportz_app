@@ -104,7 +104,7 @@ class _EditLaserTimingScreenState extends State<EditLaserTimingScreen> {
     return SequenceInputWidget(
       title: "Edit Laser Timing",
       subtitle: laserTiming.isNotEmpty
-          ? "Each bar is ${(duration / laserTiming.length).round()} seconds"
+          ? "Each bar is ${((duration / laserTiming.length)*60).round()} seconds"
           : "",
       initialValue: _decode(laserTiming),
       action: _submit,

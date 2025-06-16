@@ -104,7 +104,7 @@ class _EditLEDTimingScreenState extends State<EditLEDTimingScreen> {
     return SequenceInputWidget(
       title: "Edit LED Timing",
       subtitle: ledTiming.isNotEmpty
-          ? "Each bar is ${(duration / ledTiming.length).round()} seconds"
+          ? "Each bar is ${((duration / ledTiming.length)*60).round()} seconds"
           : "",
       initialValue: _decode(ledTiming),
       action: _submit,

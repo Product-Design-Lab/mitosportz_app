@@ -90,7 +90,7 @@ class _EditDurationScreenState extends State<EditDurationScreen> {
       return "Please enter a number";
     }
     if (num.tryParse(value) == 0) {
-      return "Use at least 1 second";
+      return "Use at least 1 minute";
     }
     if (!_isNumeric(value)) {
       return "Please enter a number";
@@ -105,7 +105,7 @@ class _EditDurationScreenState extends State<EditDurationScreen> {
   Widget _textInput() {
     return TextInputWidget(
       title: "Edit Duration",
-      subtitle: "Seconds",
+      subtitle: "Minutes",
       hintText: "$duration",
       action: _action,
       actionText: "Set Duration",

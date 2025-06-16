@@ -94,7 +94,7 @@ class _DurationWidgetState extends State<DurationWidget> {
         ),
         Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 2),
-          child: Text("secs",
+          child: Text("mins",
               style: TextStyles.smallBody
                   .copyWith(color: AppColors.labelSecondary)),
         )
